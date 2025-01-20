@@ -157,7 +157,7 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
         splashColor: Colors.amber,
       );
 
-  Column identifySection(context, cv, image) {
+  Column identifySection(context, CvModal cv, image) {
     return Column(
       children: [
         Center(
@@ -247,6 +247,7 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
             icon: Icon(FontAwesome.at),
           ),
           onChanged: (value) {
+            // print(value);
             ref.read(cvProvider.notifier).updateEmail(value);
           },
         ),
