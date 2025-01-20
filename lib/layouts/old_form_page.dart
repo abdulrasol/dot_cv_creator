@@ -1,5 +1,4 @@
-import 'package:dot_cv_creator/layouts/input.dart' as c;
-import 'package:dot_cv_creator/layouts/preivew_page.dart';
+import 'package:dot_cv_creator/layouts/preivew_widget.dart';
 import 'package:dot_cv_creator/models/cv_modal.dart';
 import 'package:dot_cv_creator/providers/statenotifier.dart';
 import 'package:flexify/flexify.dart';
@@ -128,9 +127,9 @@ class _FormPageState extends ConsumerState<FormPage> {
           TextButton(
               onPressed: () {
                 Flexify.go(
-                  CvPreivewPage(
+                  PreivewWidget(
                       textStyle: GoogleFonts.tajawal(),
-                      color: Colors.black87,
+                      textColor: Colors.black87,
                       backgroundColor: Colors.white70),
                 );
               },

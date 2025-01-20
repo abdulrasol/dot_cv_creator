@@ -1,9 +1,13 @@
-import 'package:dot_cv_creator/layouts/form_page.dart';
+import 'package:dot_cv_creator/layouts/cv_preivew_page.dart';
+import 'package:dot_cv_creator/layouts/warper.dart';
+import 'package:dot_cv_creator/layouts/from_widget.dart';
 import 'package:dot_cv_creator/layouts/home_page.dart';
-import 'package:dot_cv_creator/layouts/preivew_page.dart';
+import 'package:dot_cv_creator/layouts/preivew_widget.dart';
+import 'package:dot_cv_creator/save/export_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/flexify.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -25,11 +29,22 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        initialRoute: '/form',
+        initialRoute: '/',
         routes: {
           '/': (context) => const HomePage(),
-          '/form': (context) => const FormPage(),
-          //'/preview': (context) => const CvPreivewPage(),
+          '/form': (context) => const FromWidget(),
+          '/warp': (context) => const Warper(),
+          '/preivew': (context) => PreivewWidget(
+                textStyle: GoogleFonts.tajawal(),
+                textColor: Colors.black87,
+                backgroundColor: Colors.white70,
+              ),
+          '/preivew_screen': (context) => CvPreivewPage(
+                textStyle: GoogleFonts.tajawal(),
+                color: Colors.black87,
+                backgroundColor: Colors.white70,
+              ),
+          '/export': (context) => const ExportPage(),
         },
       ),
     );

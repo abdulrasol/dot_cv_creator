@@ -1,4 +1,4 @@
-import 'package:dot_cv_creator/layouts/form_page.dart';
+import 'package:dot_cv_creator/layouts/warper.dart';
 import 'package:flexify/flexify.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,15 +42,18 @@ class HomePage extends StatelessWidget {
                             vertical: 20, horizontal: 28)),
                     onPressed: () {
                       Flexify.go(
-                        const FormPage(),
+                        const Warper(),
                         animation: FlexifyRouteAnimations.fade,
                         animationDuration: const Duration(milliseconds: 500),
                       );
                     },
-                    child: const Text('Start Build Your CV'),
+                    child: const Text('Create Your CV'),
                   ),
                 ),
                 50.verticalSpace,
+                const Divider(),
+                10.verticalSpace,
+                const Text('Inspiration Gallery'),
                 Wrap(
                   alignment: WrapAlignment.center,
                   spacing: 10,

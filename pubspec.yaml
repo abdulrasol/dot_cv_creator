@@ -42,6 +42,10 @@ dependencies:
   validatorless: ^1.2.4
   icons_flutter: ^0.0.5
   flutter_rating_bar: ^4.0.1
+  pdf: ^3.11.1
+  flutter_to_pdf: ^0.2.2
+  widgets_to_image: ^1.0.0
+  flutter_material_color_picker: ^1.2.0
 
 dev_dependencies:
   flutter_test:

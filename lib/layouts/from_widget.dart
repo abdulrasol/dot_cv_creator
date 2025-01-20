@@ -1,90 +1,32 @@
-import 'package:dot_cv_creator/layouts/input.dart' as c;
 import 'package:dot_cv_creator/models/cv_modal.dart';
-import 'package:dot_cv_creator/providers/statenotifier.dart';
 import 'package:flexify/flexify.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_flutter/icons_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_picker_for_web/image_picker_for_web.dart';
 import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import 'package:validatorless/validatorless.dart';
+import '../providers/statenotifier.dart';
 
-final cvProvider =
-    StateNotifierProvider<CvNotifier, CvModal>((ref) => CvNotifier());
-
-class FormPage extends ConsumerStatefulWidget {
-  const FormPage({super.key});
+class FromWidget extends ConsumerStatefulWidget {
+  const FromWidget({super.key});
 
   @override
-  ConsumerState<FormPage> createState() => _FormPageState();
+  ConsumerState<FromWidget> createState() => _FromWidgetState();
 }
 
-class _FormPageState extends ConsumerState<FormPage> {
-  @override
-  void initState() {
-    super.initState();
-    ref.read(cvProvider);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final cv = ref.watch(cvProvider);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('CV Builder'),
-        actions: [
-          if (MediaQuery.of(context).size.width < 768)
-            TextButton(
-              onPressed: () {
-                Flexify.go(const c.CvFormScreenTest());
-              },
-              child: const Text('Preview'),
-            ),
-        ],
-      ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth < 768) {
-            return FormSection(cv: cv, ref: ref);
-          } else {
-            return Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: FormSection(cv: cv, ref: ref),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: PreviewSection(cv: cv),
-                ),
-              ],
-            );
-          }
-        },
-      ),
-    );
-  }
-}
-
-class FormSection extends StatefulWidget {
-  final CvModal cv;
-  final WidgetRef ref;
-
-  const FormSection({super.key, required this.cv, required this.ref});
-
-  @override
-  State<FormSection> createState() => _FormSectionState();
-}
-
-class _FormSectionState extends State<FormSection> {
+class _FromWidgetState extends ConsumerState<FromWidget> {
   late TextEditingController nameController;
   late TextEditingController profileController;
   late TextEditingController jobTitleController;
   late TextEditingController profileImageController;
-  late TextEditingController softSkillController;
-  late TextEditingController contactController;
-  late TextEditingController profSkillController;
+  late TextEditingController skillController;
+  late TextEditingController phoneController;
+  late TextEditingController emailController;
+  late TextEditingController addressController;
   late TextEditingController depController;
   late TextEditingController uniController;
   late TextEditingController langController;
@@ -95,27 +37,49 @@ class _FormSectionState extends State<FormSection> {
   late TextEditingController cerFromController;
   late TextEditingController hobiesFromController;
   late TextEditingController socialFromController;
+  late CvModal cv;
 
   String? selectedValueEdu;
-  String? selectedValuelang;
+  int? selectedValuelang;
+  double selectedValueSkill = 1;
   IconData? selectedValueContact;
   IconData? selectedValueSocial;
   String? startDateEdu;
   String? startDateExp;
   String? endDateEdu;
   String? endDateExp;
+  List<bool> isOpenListIndex = [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
+
+  final List<String> range = [
+    'Beginner',
+    'Moderate',
+    'Good',
+    'Very good',
+    'Fluent',
+  ];
 
   @override
   void initState() {
     super.initState();
-    final cv = widget.ref.read(cvProvider);
+    cv = ref.read(cvProvider);
     nameController = TextEditingController(text: cv.name);
     profileController = TextEditingController(text: cv.profile);
     jobTitleController = TextEditingController(text: cv.jobTitle);
     profileImageController = TextEditingController(text: cv.profileImage);
-    softSkillController = TextEditingController();
-    profSkillController = TextEditingController();
-    contactController = TextEditingController();
+    phoneController = TextEditingController(text: cv.phone);
+    emailController = TextEditingController(text: cv.email);
+    addressController = TextEditingController(text: cv.address);
+    skillController = TextEditingController();
     depController = TextEditingController();
     uniController = TextEditingController();
     langController = TextEditingController();
@@ -129,102 +93,188 @@ class _FormSectionState extends State<FormSection> {
   }
 
   @override
-  void dispose() {
-    nameController.dispose();
-    profileController.dispose();
-    profileImageController.dispose();
-    jobTitleController.dispose();
-    softSkillController.dispose();
-    contactController.dispose();
-    depController.dispose();
-    uniController.dispose();
-    langController.dispose();
-    expAtController.dispose();
-    expTextController.dispose();
-    expTitleController.dispose();
-    cerFromController.dispose();
-    cerTitleController.dispose();
-    hobiesFromController.dispose();
-    socialFromController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final cv = ref.watch(cvProvider);
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Identify Informations'),
-          const Divider(),
-          identifySection(context, widget.cv),
-          25.verticalSpace,
-          const Text('Profile Image Select'),
-          const Divider(),
-          profileImage(context, widget.cv.profileImage),
-          25.verticalSpace,
-          const Text('Contacts Information'),
-          const Divider(),
-          // contactSection(context, widget.cv.contacts),
-          25.verticalSpace,
-          const Divider(),
-          const Text('Soft Skills'),
-          skillsSection(context, widget.cv.skills),
-          const Text('Professional Skills'),
-          25.verticalSpace,
-          const Text('Languages'),
-          const Divider(),
-          languagesSection(context, widget.cv.langauges),
-          25.verticalSpace,
-          const Text('Educations'),
-          const Divider(),
-          addEducation(context, widget.cv.educations),
-          25.verticalSpace,
-          const Text('Experiences'),
-          const Divider(),
-          addExperiences(context, widget.cv.experiences),
-          25.verticalSpace,
-          const Text('Certifications'),
-          const Divider(),
-          certificationSection(context, widget.cv.certifications),
-          const Text('Hobbies'),
-          const Divider(),
-          hobbiesSection(context, widget.cv.hobies),
-          const Text('Social'),
-          const Divider(),
-          socialSection(context, widget.cv.socials),
+          // name
+          ExpansionPanelList(
+            children: [
+              accordingItem('Your Personal Details', 0,
+                  identifySection(context, cv, cv.profileImage)),
+              accordingItem('Your Educational Background', 1,
+                  educationSection(context, cv.educations)),
+              accordingItem('Highlight Your Strengths', 2,
+                  skillsSection(context, cv.skills)),
+              accordingItem('Career Highlights', 3,
+                  experiencesSection(context, cv.experiences)),
+              accordingItem('Languages You Speak', 4,
+                  languagesSection(context, cv.langauges)),
+              accordingItem('Certifications & Training', 5,
+                  certificationSection(context, cv.certifications)),
+              accordingItem(
+                  'Your Interests', 6, hobbiesSection(context, cv.hobies)),
+              accordingItem('Social Media Profiles', 7,
+                  socialSection(context, cv.socials)),
+            ],
+            expansionCallback: (index, isOpen) {
+              setState(() {
+                isOpenListIndex[index] = isOpen;
+              });
+            },
+            animationDuration: const Duration(seconds: 1),
+            expandedHeaderPadding: const EdgeInsets.all(8),
+            dividerColor: Colors.purple,
+            elevation: 2,
+            expandIconColor: Colors.purpleAccent,
+            materialGapSize: 16.0,
+          ),
         ],
       ),
     );
   }
 
-  Column identifySection(BuildContext context, CvModal cv) {
+  ExpansionPanel accordingItem(String title, int index, Widget child) =>
+      ExpansionPanel(
+        headerBuilder: (context, isOpen) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: GoogleFonts.tajawal(fontSize: 18.rs),
+            ),
+          );
+        },
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: child,
+        ),
+        isExpanded: isOpenListIndex[index],
+        canTapOnHeader: true,
+        splashColor: Colors.amber,
+      );
+
+  Column identifySection(context, cv, image) {
     return Column(
       children: [
+        Center(
+          child: ElevatedButton(
+            onPressed: () async {
+              final ImagePickerPlugin picker = ImagePickerPlugin();
+              final image =
+                  await picker.getImageFromSource(source: ImageSource.camera);
+              if (image?.path != null) {
+                ref.read(cvProvider.notifier).updateProfileImage(image!.path);
+              }
+            },
+            style: ButtonStyle(
+              shape: WidgetStateProperty.all(const CircleBorder()),
+              padding: WidgetStateProperty.all(const EdgeInsets.all(10)),
+              backgroundColor:
+                  WidgetStateProperty.all(Colors.blue), // <-- Button color
+              overlayColor: WidgetStateProperty.resolveWith<Color?>((states) {
+                if (states.contains(WidgetState.pressed)) {
+                  return Colors.red; // <-- Splash color
+                }
+                return null;
+              }),
+            ),
+            child: CircleAvatar(
+              radius: 50.rs,
+              backgroundImage: NetworkImage(
+                image ?? 'https://placehold.co/600x400/png',
+              ),
+            ),
+          ),
+        ),
+
+        Column(
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(labelText: 'Name'),
+              onChanged: (value) {
+                ref.read(cvProvider.notifier).updateName(value);
+              },
+            ),
+            16.verticalSpace,
+            // job title
+            TextField(
+              controller: jobTitleController,
+              decoration: const InputDecoration(labelText: 'Job Title'),
+              onChanged: (value) {
+                ref.read(cvProvider.notifier).updateJobTitle(value);
+              },
+            ),
+            16.verticalSpace,
+          ],
+        ),
+        4.verticalSpace,
+        Row(
+          children: [
+            Text(
+              'How to Reach You',
+              style: GoogleFonts.tajawal(fontSize: 14.rs),
+            ),
+            const Expanded(
+                child: Divider(
+              indent: 10,
+            )),
+          ],
+        ),
+        4.verticalSpace,
         TextField(
-          controller: nameController,
-          decoration: const InputDecoration(labelText: 'Name'),
+          controller: phoneController,
+          keyboardType: const TextInputType.numberWithOptions(),
+          decoration: const InputDecoration(
+            labelText: 'Phone',
+            icon: Icon(FontAwesome.phone),
+          ),
           onChanged: (value) {
-            widget.ref.read(cvProvider.notifier).updateName(value);
+            ref.read(cvProvider.notifier).updatePhone(value);
           },
         ),
         16.verticalSpace,
+        // job title
         TextField(
-          controller: jobTitleController,
-          decoration: const InputDecoration(labelText: 'Job Title'),
+          controller: emailController,
+          keyboardType: TextInputType.emailAddress,
+          decoration: const InputDecoration(
+            labelText: 'Email',
+            icon: Icon(FontAwesome.at),
+          ),
           onChanged: (value) {
-            widget.ref.read(cvProvider.notifier).updateJobTitle(value);
+            ref.read(cvProvider.notifier).updateEmail(value);
           },
         ),
-        16.verticalSpace,
+        16.verticalSpace, // add contacts
+        TextField(
+          controller: addressController,
+          decoration: const InputDecoration(
+            labelText: 'Address',
+            icon: Icon(FontAwesome.location_arrow),
+          ),
+          onChanged: (value) {
+            ref.read(cvProvider.notifier).updateAddress(value);
+          },
+        ),
+        4.verticalSpace,
+        const Divider(
+          indent: 10,
+          endIndent: 10,
+        ),
+        4.verticalSpace,
+        //  profile
         TextField(
           controller: profileController,
           decoration: InputDecoration(
               labelText: 'Profile',
-              helperText: 'summary of your cv as "${cv.profile}"'),
+              helperText: 'summery of your cv as "${cv.profile}"'),
           onChanged: (value) {
-            widget.ref.read(cvProvider.notifier).updateProfile(value);
+            ref.read(cvProvider.notifier).updateJobTitle(value);
           },
           maxLines: 5,
           minLines: 3,
@@ -233,48 +283,103 @@ class _FormSectionState extends State<FormSection> {
     );
   }
 
-  Column skillsSection(BuildContext context, List<String> softSkills) {
+  Column skillsSection(context, skills) {
     return Column(
       children: [
+        Row(
+          children: [
+            Text(
+              'Yours skills',
+              style: GoogleFonts.tajawal(fontSize: 14.rs),
+            ),
+            const Expanded(
+                child: Divider(
+              indent: 10,
+            )),
+          ],
+        ),
+        4.verticalSpace,
         ListView.builder(
-          itemCount: softSkills.length,
+          itemCount: skills.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
             return ListTile(
-              title: Text(softSkills[index]),
+              title: Text(skills[index]['skill']),
+              subtitle: RatingBar(
+                initialRating: double.parse(skills[index]['level'].toString()),
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemSize: 20,
+                ignoreGestures: true,
+                ratingWidget: RatingWidget(
+                  full: const Icon(Icons.circle_rounded),
+                  half: const Icon(Icons.circle_outlined),
+                  empty: const Icon(Icons.circle_outlined),
+                ),
+                onRatingUpdate: (v) {},
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+              ),
               trailing: IconButton(
                 icon: const Icon(Icons.delete, color: Colors.red),
                 onPressed: () {
-                  widget.ref
+                  ref
                       .read(cvProvider.notifier)
-                      .removeSkill(softSkills[index]);
+                      .removeSkill(skills[index]['skill']);
                 },
               ),
             );
           },
         ),
+        12.verticalSpace,
+        Row(
+          children: [
+            Text(
+              'Add Skills',
+              style: GoogleFonts.tajawal(fontSize: 14.rs),
+            ),
+            const Expanded(
+                child: Divider(
+              indent: 10,
+            )),
+          ],
+        ),
+        4.verticalSpace,
+        Slider(
+            value: selectedValueSkill,
+            divisions: 5,
+            min: 1,
+            max: 5,
+            label: '$selectedValueSkill',
+            onChanged: (val) {
+              setState(() {
+                selectedValueSkill = val;
+              });
+            }),
         TextField(
-          controller: softSkillController,
+          controller: skillController,
           decoration: InputDecoration(
-            labelText: 'Add Soft skills',
-            suffixIcon: IconButton(
-                onPressed: () {
-                  if (softSkillController.text.isNotEmpty) {
-                    widget.ref
-                        .read(cvProvider.notifier)
-                        .addSkill(softSkillController.text);
-                    softSkillController.clear();
-                  }
-                },
-                icon: const Icon(Icons.add)),
-          ),
+              labelText: 'Add Soft skills',
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    if (skillController.text.isNotEmpty) {
+                      ref.read(cvProvider.notifier).addSkill({
+                        'skill': skillController.text,
+                        'level': selectedValueSkill
+                      });
+                      skillController.clear();
+                    }
+                  },
+                  icon: const Icon(Icons.add))),
+          onChanged: (value) {
+            // ref.read(cvProvider.notifier).updateName(value);
+          },
         ),
       ],
     );
   }
 
-  Column languagesSection(
-      BuildContext context, List<Map<String, dynamic>> langs) {
+  Column languagesSection(context, List<Map<String, dynamic>> langs) {
     GlobalKey<FormState> langFormKey = GlobalKey<FormState>();
     return Column(
       children: [
@@ -284,11 +389,11 @@ class _FormSectionState extends State<FormSection> {
           itemBuilder: (context, index) {
             return ListTile(
               title: Text(langs[index]['lang']),
-              subtitle: Text(langs[index]['level']),
+              subtitle: Text(range[langs[index]['level'] - 1]),
               trailing: IconButton(
                 icon: const Icon(Icons.delete, color: Colors.red),
                 onPressed: () {
-                  widget.ref
+                  ref
                       .read(cvProvider.notifier)
                       .removeLanguage(langs[index]['lang']);
                 },
@@ -302,31 +407,27 @@ class _FormSectionState extends State<FormSection> {
           child: Row(
             children: [
               Expanded(
-                child: DropdownButtonFormField<String>(
+                child: DropdownButtonFormField<int>(
                   decoration: const InputDecoration(
                     labelText: 'Level',
                     border: OutlineInputBorder(),
                   ),
                   value: selectedValuelang,
-                  items: [
-                    'Beginner',
-                    'Proficient',
-                    'Fluent',
-                    'Conversational',
-                    'Native',
-                    'Intermediate',
-                  ]
-                      .map((level) => DropdownMenuItem<String>(
-                            value: level,
+                  items: range
+                      .map((level) => DropdownMenuItem<int>(
+                            value: range.indexOf(level) + 1,
                             child: Text(level),
                           ))
                       .toList(),
                   onChanged: (val) {
-                    setState(() {
-                      selectedValuelang = val;
-                    });
+                    selectedValuelang = val;
                   },
-                  validator: Validatorless.required('level required!'),
+                  validator: (val) {
+                    if (val == null) {
+                      return 'level required!';
+                    }
+                    return null;
+                  },
                 ),
               ),
               10.horizontalSpace,
@@ -337,12 +438,13 @@ class _FormSectionState extends State<FormSection> {
                     labelText: 'Add Language',
                     suffixIcon: IconButton(
                       onPressed: () {
-                        if (langFormKey.currentState!.validate() &&
-                            selectedValuelang != null) {
-                          widget.ref.read(cvProvider.notifier).addlanguage({
+                        if (langFormKey.currentState!.validate()) {
+                          ref.read(cvProvider.notifier).addlanguage({
                             'lang': langController.text,
                             'level': selectedValuelang
                           });
+                          langController.clear();
+                          selectedValuelang = null;
                         }
                       },
                       icon: const Icon(Icons.add),
@@ -358,8 +460,7 @@ class _FormSectionState extends State<FormSection> {
     );
   }
 
-  Widget addEducation(
-      BuildContext context, List<Map<String, String>> educations) {
+  Widget educationSection(context, List<Map<String, String>> educations) {
     final List<String> degrees = [
       'Associate Degree',
       'Bachelor\'s Degree',
@@ -369,6 +470,12 @@ class _FormSectionState extends State<FormSection> {
     GlobalKey<FormState> eduFormKey = GlobalKey<FormState>();
     final RoundedLoadingButtonController btnController =
         RoundedLoadingButtonController();
+    // deg droplist
+
+    // uni text
+
+    // date datepiker
+    // department text
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -383,7 +490,7 @@ class _FormSectionState extends State<FormSection> {
                   'from ${educations[index]['uni']} on ${educations[index]['date']}'),
               trailing: IconButton(
                   onPressed: () {
-                    widget.ref
+                    ref
                         .read(cvProvider.notifier)
                         .removeDegree(educations[index]['uni']!);
                   },
@@ -418,10 +525,11 @@ class _FormSectionState extends State<FormSection> {
                   validator:
                       Validatorless.required('this section is required!'),
                 ),
+                // educations
                 16.verticalSpace,
                 DropdownButtonFormField<String>(
                   decoration: const InputDecoration(
-                    labelText: 'Degree',
+                    labelText: 'Degree', // نص التسمية
                     border: OutlineInputBorder(),
                   ),
                   value: selectedValueEdu,
@@ -460,6 +568,7 @@ class _FormSectionState extends State<FormSection> {
                       child:
                           Text('Start : ${startDateEdu ?? 'click to select'}'),
                     ),
+                    // Text(startDate ?? ''),
                     TextButton(
                       onPressed: () async {
                         await showDatePicker(
@@ -489,7 +598,7 @@ class _FormSectionState extends State<FormSection> {
                         if (eduFormKey.currentState!.validate() &&
                             startDateEdu != null &&
                             endDateEdu != null) {
-                          widget.ref.read(cvProvider.notifier).addDegree({
+                          ref.read(cvProvider.notifier).addDegree({
                             'deg': selectedValueEdu!,
                             'title': depController.text,
                             'uni': uniController.text,
@@ -512,8 +621,7 @@ class _FormSectionState extends State<FormSection> {
     );
   }
 
-  Widget addExperiences(
-      BuildContext context, List<Map<String, String>> experiences) {
+  Widget experiencesSection(context, List<Map<String, String>> experiences) {
     GlobalKey<FormState> expFormKey = GlobalKey<FormState>();
     final RoundedLoadingButtonController btnController =
         RoundedLoadingButtonController();
@@ -531,7 +639,7 @@ class _FormSectionState extends State<FormSection> {
                   '${experiences[index]['text']} - ${experiences[index]['date']}'),
               trailing: IconButton(
                   onPressed: () {
-                    widget.ref
+                    ref
                         .read(cvProvider.notifier)
                         .removeExperiences(experiences[index]['at']!);
                   },
@@ -564,11 +672,12 @@ class _FormSectionState extends State<FormSection> {
                 ),
                 validator: Validatorless.required('this section is required!'),
               ),
+              // educations
               16.verticalSpace,
               TextFormField(
                 controller: expTextController,
                 decoration: const InputDecoration(
-                  labelText: 'summary',
+                  labelText: 'summery',
                 ),
                 validator: Validatorless.required('this section is required!'),
               ),
@@ -594,6 +703,7 @@ class _FormSectionState extends State<FormSection> {
                     },
                     child: Text('Start : ${startDateExp ?? 'click to select'}'),
                   ),
+                  // Text(startDate ?? ''),
                   TextButton(
                     onPressed: () async {
                       await showDatePicker(
@@ -622,7 +732,7 @@ class _FormSectionState extends State<FormSection> {
                     onPressed: () {
                       if (expFormKey.currentState!.validate() &&
                           startDateExp != null) {
-                        widget.ref.read(cvProvider.notifier).addExperiences({
+                        ref.read(cvProvider.notifier).addExperiences({
                           'at': expAtController.text,
                           'title': expTitleController.text,
                           'text': expTextController.text,
@@ -650,73 +760,68 @@ class _FormSectionState extends State<FormSection> {
     );
   }
 
-  Widget profileImage(BuildContext context, String? image) {
+  Widget profileImage(context, image) {
     final RoundedLoadingButtonController btnController =
         RoundedLoadingButtonController();
     return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 200.rs,
-            width: 200.rs,
-            child: Stack(
-              textDirection: TextDirection.ltr,
-              children: [
-                Positioned(
-                  child: CircleAvatar(
-                    radius: double.infinity.rh,
-                    backgroundImage: NetworkImage(
-                      image ?? 'https://placehold.co/600x400/png',
-                    ),
-                  ),
+      child: SizedBox(
+        height: 200.rs,
+        width: 200.rs,
+        child: Stack(
+          textDirection: TextDirection.ltr,
+          children: [
+            Positioned(
+              child: CircleAvatar(
+                radius: double.infinity.rh,
+                backgroundImage: NetworkImage(
+                  image ?? 'https://placehold.co/600x400/png',
                 ),
-                Positioned(
-                  bottom: 20.rh,
-                  right: 8.rh,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      final ImagePickerPlugin picker = ImagePickerPlugin();
-                      final image = await picker.getImageFromSource(
-                          source: ImageSource.camera);
-                      if (image?.path != null) {
-                        widget.ref
-                            .read(cvProvider.notifier)
-                            .updateProfileImage(image!.path);
-                        btnController.success();
-                      } else {
-                        btnController.error();
-                      }
-                      Future.delayed(const Duration(seconds: 1))
-                          .then((c) => btnController.reset());
-                    },
-                    style: ButtonStyle(
-                      shape: WidgetStateProperty.all(const CircleBorder()),
-                      padding:
-                          WidgetStateProperty.all(const EdgeInsets.all(20)),
-                      backgroundColor: WidgetStateProperty.all(Colors.blue),
-                      overlayColor:
-                          WidgetStateProperty.resolveWith<Color?>((states) {
-                        if (states.contains(WidgetState.pressed)) {
-                          return Colors.red;
-                        }
-                        return null;
-                      }),
-                    ),
-                    child: const Icon(Icons.edit),
-                  ),
-                )
-              ],
+              ),
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 20.rh,
+              right: 8.rh,
+              child: ElevatedButton(
+                onPressed: () async {
+                  final ImagePickerPlugin picker = ImagePickerPlugin();
+                  final image = await picker.getImageFromSource(
+                      source: ImageSource.camera);
+                  if (image?.path != null) {
+                    ref
+                        .read(cvProvider.notifier)
+                        .updateProfileImage(image!.path);
+                    btnController.success();
+                  } else {
+                    btnController.error();
+                  }
+                  Future.delayed(const Duration(seconds: 1))
+                      .then((c) => btnController.reset());
+                },
+                style: ButtonStyle(
+                  shape: WidgetStateProperty.all(const CircleBorder()),
+                  padding: WidgetStateProperty.all(const EdgeInsets.all(20)),
+                  backgroundColor:
+                      WidgetStateProperty.all(Colors.blue), // <-- Button color
+                  overlayColor:
+                      WidgetStateProperty.resolveWith<Color?>((states) {
+                    if (states.contains(WidgetState.pressed)) {
+                      return Colors.red; // <-- Splash color
+                    }
+                    return null;
+                  }),
+                ),
+                child: const Icon(Icons.edit),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 
-  Column certificationSection(
-      BuildContext context, List<Map<String, dynamic>> certification) {
+  Column certificationSection(context, certification) {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -730,7 +835,7 @@ class _FormSectionState extends State<FormSection> {
               subtitle: Text('From: ${certification[index]['from']} '),
               trailing: IconButton(
                   onPressed: () {
-                    widget.ref
+                    ref
                         .read(cvProvider.notifier)
                         .removeECertification(certification[index]['title']!);
                   },
@@ -755,6 +860,8 @@ class _FormSectionState extends State<FormSection> {
                 ),
                 validator: Validatorless.required('this section is required!'),
               ),
+
+              // educations
               16.verticalSpace,
               TextFormField(
                 controller: cerFromController,
@@ -763,17 +870,20 @@ class _FormSectionState extends State<FormSection> {
                 ),
                 validator: Validatorless.required('this section is required!'),
               ),
+
               12.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   OutlinedButton(
+                    // controller: btnController,
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        widget.ref.read(cvProvider.notifier).addCertification({
+                        ref.read(cvProvider.notifier).addCertification({
                           'title': cerTitleController.text,
                           'from': cerFromController.text,
                         });
+
                         cerFromController.clear();
                         cerTitleController.clear();
                       }
@@ -790,7 +900,7 @@ class _FormSectionState extends State<FormSection> {
     );
   }
 
-  Column hobbiesSection(BuildContext context, List<String> hobies) {
+  Column hobbiesSection(context, hobies) {
     return Column(
       children: [
         ListView.builder(
@@ -802,9 +912,7 @@ class _FormSectionState extends State<FormSection> {
               trailing: IconButton(
                 icon: const Icon(Icons.delete, color: Colors.red),
                 onPressed: () {
-                  widget.ref
-                      .read(cvProvider.notifier)
-                      .removeHobbies(hobies[index]);
+                  ref.read(cvProvider.notifier).removeHobbies(hobies[index]);
                 },
               ),
             );
@@ -813,11 +921,11 @@ class _FormSectionState extends State<FormSection> {
         TextField(
           controller: hobiesFromController,
           decoration: InputDecoration(
-              labelText: 'Add hobbies',
+              labelText: 'Add hobies',
               suffixIcon: IconButton(
                   onPressed: () {
                     if (hobiesFromController.text.isNotEmpty) {
-                      widget.ref
+                      ref
                           .read(cvProvider.notifier)
                           .addHobbies(hobiesFromController.text);
                       hobiesFromController.clear();
@@ -829,8 +937,7 @@ class _FormSectionState extends State<FormSection> {
     );
   }
 
-  Column socialSection(
-      BuildContext context, List<Map<String, dynamic>> contacts) {
+  Column socialSection(context, List<Map<String, dynamic>> contacts) {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
     List<IconData> icons = [
       FontAwesome.youtube,
@@ -859,7 +966,7 @@ class _FormSectionState extends State<FormSection> {
                     title: Text(contacts[index]['username']),
                     trailing: IconButton(
                       onPressed: () {
-                        widget.ref
+                        ref
                             .read(cvProvider.notifier)
                             .removeSocial(contacts[index]['platform']);
                       },
@@ -871,6 +978,7 @@ class _FormSectionState extends State<FormSection> {
               );
             }),
         10.verticalSpace,
+        // add contacts
         Form(
           key: formKey,
           child: Row(
@@ -879,7 +987,7 @@ class _FormSectionState extends State<FormSection> {
                 flex: 1,
                 child: DropdownButtonFormField<IconData>(
                   decoration: const InputDecoration(
-                    labelText: 'Platform',
+                    labelText: 'Platform', // نص التسمية
                     border: OutlineInputBorder(),
                   ),
                   value: selectedValueSocial,
@@ -914,7 +1022,7 @@ class _FormSectionState extends State<FormSection> {
                           onPressed: () {
                             if (formKey.currentState!.validate() &&
                                 selectedValueSocial != null) {
-                              widget.ref.read(cvProvider.notifier).addSocial({
+                              ref.read(cvProvider.notifier).addSocial({
                                 'platform': selectedValueSocial,
                                 'username': socialFromController.text
                               });
@@ -928,25 +1036,6 @@ class _FormSectionState extends State<FormSection> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class PreviewSection extends StatelessWidget {
-  final CvModal cv;
-
-  const PreviewSection({super.key, required this.cv});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Add your preview widgets here...
-        ],
-      ),
     );
   }
 }

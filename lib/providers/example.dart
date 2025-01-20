@@ -1,16 +1,16 @@
 import 'package:dot_cv_creator/models/cv_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_flutter/icons_flutter.dart';
-import 'package:riverpod/riverpod.dart';
 
-final cvProvider =
-    StateNotifierProvider<CvNotifier, CvModal>((ref) => CvNotifier());
+final exampleOne =
+    StateNotifierProvider<ExampleOne, CvModal>((ref) => ExampleOne());
 
-class CvNotifier extends StateNotifier<CvModal> {
-  CvNotifier()
+class ExampleOne extends StateNotifier<CvModal> {
+  ExampleOne()
       : super(
           CvModal(
-            name: 'AbdulRasol Al-Hilo', // t
+            name: 'Soluta et quis',
             jobTitle: 'IT & Engineer',
             profileImage:
                 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250',
@@ -19,14 +19,12 @@ class CvNotifier extends StateNotifier<CvModal> {
             phone: '07813639721',
             email: 'abdulrsol97@gmail.com',
             address: 'Najaf, Iraq',
-
             skills: [
               {'skill': 'Good in and Communications', 'level': 4},
               {'skill': 'Flutter/Dart', 'level': 4},
               {'skill': 'Python', 'level': 3},
               {'skill': 'Python', 'level': 3},
             ],
-
             langauges: [
               {'lang': 'Arabic', 'level': 5},
               {'lang': 'English', 'level': 3},
