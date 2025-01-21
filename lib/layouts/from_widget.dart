@@ -275,7 +275,7 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
               labelText: 'Profile',
               helperText: 'summery of your cv as "${cv.profile}"'),
           onChanged: (value) {
-            ref.read(cvProvider.notifier).updateJobTitle(value);
+            ref.read(cvProvider.notifier).updateProfile(value);
           },
           maxLines: 5,
           minLines: 3,

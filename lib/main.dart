@@ -3,7 +3,7 @@ import 'package:dot_cv_creator/layouts/warper.dart';
 import 'package:dot_cv_creator/layouts/from_widget.dart';
 import 'package:dot_cv_creator/layouts/home_page.dart';
 import 'package:dot_cv_creator/layouts/preivew_widget.dart';
-import 'package:dot_cv_creator/save/export_page.dart';
+import 'package:dot_cv_creator/save/export2.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/flexify.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
