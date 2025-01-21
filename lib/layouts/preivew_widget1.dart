@@ -221,7 +221,7 @@ class PreivewWidget extends ConsumerWidget {
         SizedBox(height: pageWidth * 0.01),
         Text('Hobies', style: subtitleStyle),
         SizedBox(height: pageWidth * 0.001),
-        ...cv.hobies.map(
+        ...cv.hobbies.map(
           (hobby) => Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,

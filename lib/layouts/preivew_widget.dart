@@ -24,48 +24,77 @@ class PreivewWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cv = ref.watch(cvProvider);
 
-    return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          // Calculate dimensions while maintaining A4 ratio
-          double pageWidth = constraints.maxWidth * 0.9;
-          double pageHeight = pageWidth * a4Ratio;
-
-          // If height exceeds screen height, recalculate based on height
-          if (pageHeight > constraints.maxHeight * 0.9) {
-            pageHeight = constraints.maxHeight * 0.9;
-            pageWidth = pageHeight / a4Ratio;
+    // تحديد النصوص حسب اتجاه اللغة
+    final Map<String, String> labels = cv.cvLanguages == TextDirection.rtl
+        ? {
+            'contactDetails': 'معلومات التواصل',
+            'skills': 'المهارات',
+            'languages': 'اللغات',
+            'hobbies': 'الهوايات',
+            'socials': 'التواصل الاجتماعي',
+            'profile': 'نبذة تعريفية',
+            'education': 'التعليم',
+            'experience': 'الخبرات',
+            'certifications': 'الشهادات',
           }
+        : {
+            'contactDetails': 'Contact Details',
+            'skills': 'Skills',
+            'languages': 'Languages',
+            'hobbies': 'Hobbies',
+            'socials': 'Socials',
+            'profile': 'Profile',
+            'education': 'Education',
+            'experience': 'Experience',
+            'certifications': 'Certifications',
+          };
 
-          // Calculate scale factor
-          double scaleFactor = constraints.maxWidth / pageWidth;
+    return Scaffold(
+      body: Directionality(
+        textDirection: cv.cvLanguages,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            // Calculate dimensions while maintaining A4 ratio
+            double pageWidth = constraints.maxWidth * 0.9;
+            double pageHeight = pageWidth * a4Ratio;
 
-          return Center(
-            child: SingleChildScrollView(
-              child: Transform.scale(
-                scale: 1.1,
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Container(
-                    width: pageWidth,
-                    height: pageHeight,
-                    color: backgroundColor,
-                    padding: EdgeInsets.all(pageWidth * 0.04),
-                    child: Transform.scale(
-                      scale: scaleFactor < 1 ? scaleFactor : 1,
-                      child: _buildContent(cv, pageWidth),
+            // If height exceeds screen height, recalculate based on height
+            if (pageHeight > constraints.maxHeight * 0.9) {
+              pageHeight = constraints.maxHeight * 0.9;
+              pageWidth = pageHeight / a4Ratio;
+            }
+
+            // Calculate scale factor
+            double scaleFactor = constraints.maxWidth / pageWidth;
+
+            return Center(
+              child: SingleChildScrollView(
+                child: Transform.scale(
+                  scale: 1.1,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Container(
+                      width: pageWidth,
+                      height: pageHeight,
+                      color: backgroundColor,
+                      padding: EdgeInsets.all(pageWidth * 0.04),
+                      child: Transform.scale(
+                        scale: scaleFactor < 1 ? scaleFactor : 1,
+                        child: _buildContent(cv, pageWidth, labels),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 
-  Widget _buildContent(CvModal cv, double pageWidth) {
+  Widget _buildContent(
+      CvModal cv, double pageWidth, Map<String, String> labels) {
     // Calculate responsive font sizes
     final double baseFontSize = pageWidth * 0.015;
     final TextStyle responsiveTextStyle = textStyle.copyWith(
@@ -89,7 +118,7 @@ class PreivewWidget extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildHeader(cv, headerStyle, bodyStyle, pageWidth),
+        _buildHeader(cv, headerStyle, bodyStyle, pageWidth, labels),
         SizedBox(height: pageWidth * 0.005),
         Divider(thickness: 1, color: textColor.withOpacity(0.3)),
         SizedBox(height: pageWidth * 0.01),
@@ -99,12 +128,13 @@ class PreivewWidget extends ConsumerWidget {
             children: [
               Expanded(
                 flex: 1,
-                child: _buildSidebar(
-                    cv, headerStyle, subtilteStyle, bodyStyle, pageWidth),
+                child: _buildSidebar(cv, headerStyle, subtilteStyle, bodyStyle,
+                    pageWidth, labels),
               ),
               Expanded(
                 flex: 3,
-                child: _buildMainContent(cv, headerStyle, bodyStyle, pageWidth),
+                child: _buildMainContent(
+                    cv, headerStyle, bodyStyle, pageWidth, labels),
               ),
             ],
           ),
@@ -114,16 +144,17 @@ class PreivewWidget extends ConsumerWidget {
   }
 
   Widget _buildHeader(CvModal cv, TextStyle headerStyle, TextStyle bodyStyle,
-      double pageWidth) {
+      double pageWidth, Map<String, String> labels) {
     return Row(
       children: [
-        CircleAvatar(
-          radius: pageWidth * 0.08,
-          backgroundImage: NetworkImage(
-            cv.profileImage ?? 'https://placehold.co/600x400/png',
-          ),
-        ),
-        SizedBox(width: pageWidth * 0.03),
+        cv.profileImage != null
+            ? CircleAvatar(
+                radius: pageWidth * 0.08,
+                backgroundImage: cv.profileImage != null
+                    ? NetworkImage(cv.profileImage!)
+                    : const AssetImage('assets/images/avatar.png'),
+              )
+            : SizedBox(width: pageWidth * 0.03),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,12 +172,18 @@ class PreivewWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildSidebar(CvModal cv, TextStyle headerStyle,
-      TextStyle subtitleStyle, TextStyle bodyStyle, double pageWidth) {
+  Widget _buildSidebar(
+    CvModal cv,
+    TextStyle headerStyle,
+    TextStyle subtitleStyle,
+    TextStyle bodyStyle,
+    double pageWidth,
+    Map<String, String> labels,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Contact Details', style: subtitleStyle),
+        Text(labels['contactDetails']!, style: subtitleStyle),
         SizedBox(height: pageWidth * 0.001),
         _buildContactRow(FontAwesome.phone, cv.phone, bodyStyle, pageWidth),
         _buildContactRow(FontAwesome.at, cv.email, bodyStyle, pageWidth),
@@ -158,7 +195,7 @@ class PreivewWidget extends ConsumerWidget {
             ? const SizedBox()
             : Column(
                 children: [
-                  Text('Skills', style: subtitleStyle),
+                  Text(labels['skills']!, style: subtitleStyle),
                   SizedBox(height: pageWidth * 0.001),
                   ...cv.skills.map(
                     (skill) => Padding(
@@ -239,12 +276,12 @@ class PreivewWidget extends ConsumerWidget {
                   ),
                 ],
               ),
-        cv.hobies.isNotEmpty
+        cv.hobbies.isNotEmpty
             ? Column(
                 children: [
                   SizedBox(height: pageWidth * 0.01),
-                  Text('Hobies', style: subtitleStyle),
-                  ...cv.hobies.map<Widget>(
+                  Text(labels['hobbies']!, style: subtitleStyle),
+                  ...cv.hobbies.map<Widget>(
                     (hobby) => Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -288,7 +325,7 @@ class PreivewWidget extends ConsumerWidget {
             ? const SizedBox()
             : Column(
                 children: [
-                  Text('Socials', style: subtitleStyle),
+                  Text(labels['socials']!, style: subtitleStyle),
                   SizedBox(height: pageWidth * 0.001),
                   ...cv.socials.map(
                     (social) => Row(
@@ -337,31 +374,44 @@ class PreivewWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildMainContent(CvModal cv, TextStyle headerStyle,
-      TextStyle bodyStyle, double pageWidth) {
+  Widget _buildMainContent(
+    CvModal cv,
+    TextStyle headerStyle,
+    TextStyle bodyStyle,
+    double pageWidth,
+    Map<String, String> labels,
+  ) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: pageWidth * 0.03),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildProfileSection(cv, headerStyle, bodyStyle, pageWidth),
+          _buildProfileSection(cv, headerStyle, bodyStyle, pageWidth, labels),
           _buildDivider(pageWidth),
-          _buildEducationSection(cv, headerStyle, bodyStyle, pageWidth),
+          _buildEducationSection(cv, headerStyle, bodyStyle, pageWidth, labels),
           _buildDivider(pageWidth),
-          _buildExperienceSection(cv, headerStyle, bodyStyle, pageWidth),
+          _buildExperienceSection(
+              cv, headerStyle, bodyStyle, pageWidth, labels),
           _buildDivider(pageWidth),
-          _buildCertificationSection(cv, headerStyle, bodyStyle, pageWidth),
+          _buildCertificationSection(
+              cv, headerStyle, bodyStyle, pageWidth, labels),
         ],
       ),
     );
   }
 
-  Widget _buildProfileSection(CvModal cv, TextStyle headerStyle,
-      TextStyle bodyStyle, double pageWidth) {
+  Widget _buildProfileSection(
+    CvModal cv,
+    TextStyle headerStyle,
+    TextStyle bodyStyle,
+    double pageWidth,
+    Map<String, String> labels,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Profile', style: headerStyle, textAlign: TextAlign.justify),
+        Text(labels['profile']!,
+            style: headerStyle, textAlign: TextAlign.justify),
         SizedBox(height: pageWidth * 0.0001),
         Padding(
           padding: EdgeInsets.only(left: pageWidth * 0.01),
@@ -372,12 +422,17 @@ class PreivewWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildEducationSection(CvModal cv, TextStyle headerStyle,
-      TextStyle bodyStyle, double pageWidth) {
+  Widget _buildEducationSection(
+    CvModal cv,
+    TextStyle headerStyle,
+    TextStyle bodyStyle,
+    double pageWidth,
+    Map<String, String> labels,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Education', style: headerStyle),
+        Text(labels['education']!, style: headerStyle),
         SizedBox(height: pageWidth * 0.0001),
         ...cv.educations.map(
           (edu) => Padding(
@@ -386,7 +441,8 @@ class PreivewWidget extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${edu['deg']} of ${edu['title']}',
+                Text(
+                    '${edu['deg']} ${cv.cvLanguages == TextDirection.rtl ? 'في' : 'of'} ${edu['title']}',
                     style: bodyStyle.copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(height: pageWidth * 0.001),
                 Text(edu['uni']!, style: bodyStyle),
@@ -400,12 +456,17 @@ class PreivewWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildExperienceSection(CvModal cv, TextStyle headerStyle,
-      TextStyle bodyStyle, double pageWidth) {
+  Widget _buildExperienceSection(
+    CvModal cv,
+    TextStyle headerStyle,
+    TextStyle bodyStyle,
+    double pageWidth,
+    Map<String, String> labels,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Experience', style: headerStyle),
+        Text(labels['experience']!, style: headerStyle),
         SizedBox(height: pageWidth * 0.0001),
         ...cv.experiences.map(
           (exp) => Padding(
@@ -428,12 +489,17 @@ class PreivewWidget extends ConsumerWidget {
     );
   }
 
-  Widget _buildCertificationSection(CvModal cv, TextStyle headerStyle,
-      TextStyle bodyStyle, double pageWidth) {
+  Widget _buildCertificationSection(
+    CvModal cv,
+    TextStyle headerStyle,
+    TextStyle bodyStyle,
+    double pageWidth,
+    Map<String, String> labels,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Certifications', style: headerStyle),
+        Text(labels['certifications']!, style: headerStyle),
         SizedBox(height: pageWidth * 0.0001),
         ...cv.certifications.map(
           (cert) => Padding(

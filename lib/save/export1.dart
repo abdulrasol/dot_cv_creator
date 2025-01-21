@@ -1,11 +1,10 @@
 import 'dart:typed_data';
 import 'dart:html' as html;
-import 'dart:ui' as ui;
+import 'package:dot_cv_creator/layouts/tools.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:dot_cv_creator/layouts/preivew_widget.dart';
 import 'package:flexify/flexify.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_flutter/icons_flutter.dart';
 import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
@@ -119,39 +118,44 @@ class _ExportPageState extends State<ExportPage> {
       context: context,
       builder: (context) {
         return Dialog(
-            shadowColor: Colors.purple,
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                //  width: double.minPositive,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text('Select a Font for Your CV'),
-                    5.verticalSpace,
-                    const Divider(),
-                    Wrap(
-                      spacing: 3,
-                      runSpacing: 3,
-                      children: fontType.map((TextStyle font) {
-                        return TextButton(
-                          onPressed: () {
-                            setState(() {
-                              selectedFont = font;
-                            });
-                          },
-                          child: Text(
-                            '${font.fontFamily!.split('_')[0]} font',
-                            style: font, // Apply the font style here
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
-              ),
-            ));
+          shadowColor: Colors.purple,
+          elevation: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: LayoutBuilder(
+              builder: (context, boxConstrains) {
+                return mediaQuery(
+                  boxConstrains,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('Select a Font for Your CV'),
+                      5.verticalSpace,
+                      const Divider(),
+                      Wrap(
+                        spacing: 3,
+                        runSpacing: 3,
+                        children: fontType.map((TextStyle font) {
+                          return TextButton(
+                            onPressed: () {
+                              setState(() {
+                                selectedFont = font;
+                              });
+                            },
+                            child: Text(
+                              '${font.fontFamily!.split('_')[0]} font',
+                              style: font, // Apply the font style here
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        );
       },
     );
   }
@@ -161,47 +165,53 @@ class _ExportPageState extends State<ExportPage> {
       context: context,
       builder: (context) {
         return Dialog(
-            shadowColor: Colors.purple,
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                //  width: double.minPositive,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text('Select Text and Background Colors'),
-                    const Divider(),
-                    5.verticalSpace,
-                    const Text('Select a Color for Text'),
-                    12.verticalSpace,
-                    MaterialColorPicker(
-                        onColorChange: (Color color) {
-                          setState(() {
-                            textColor = color;
-                          });
-                        },
-                        selectedColor: Colors.red),
-                    const Divider(),
-                    5.verticalSpace,
-                    const Text('Select a Background Shade'),
-                    12.verticalSpace,
-                    MaterialColorPicker(
-                        onColorChange: (Color color) {
-                          setState(() {
-                            backgroundColor = color;
-                          });
-                        },
-                        selectedColor: Colors.red),
-                  ],
-                ),
-              ),
-            ));
+          shadowColor: Colors.purple,
+          elevation: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: LayoutBuilder(
+              builder: (context, boxConstrains) {
+                return mediaQuery(
+                  boxConstrains,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text('Select Text and Background Colors'),
+                      const Divider(),
+                      5.verticalSpace,
+                      const Text('Select a Color for Text'),
+                      12.verticalSpace,
+                      MaterialColorPicker(
+                          onColorChange: (Color color) {
+                            setState(() {
+                              textColor = color;
+                            });
+                          },
+                          selectedColor: Colors.red),
+                      const Divider(),
+                      5.verticalSpace,
+                      const Text('Select a Background Shade'),
+                      12.verticalSpace,
+                      MaterialColorPicker(
+                          onColorChange: (Color color) {
+                            setState(() {
+                              backgroundColor = color;
+                            });
+                          },
+                          selectedColor: Colors.red),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        );
       },
     );
   }
 
+/*
   Future<void> _exportAsImage() async {
     try {
       final RenderRepaintBoundary boundary = _globalKey.currentContext!
@@ -215,18 +225,14 @@ class _ExportPageState extends State<ExportPage> {
       final ui.Image image = await boundary.toImage(pixelRatio: 8.0);
       final ByteData? byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);
-      final Uint8List imageBytes = byteData!.buffer.asUint8List();
-
-      setState(() {
-        _cvImage = imageBytes;
-      });
+      _cvImage = byteData!.buffer.asUint8List();
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Error exporting image: $e")),
       );
     }
   }
-
+*/
   Future<void> _downloadImage() async {
     final blob = html.Blob([bytes]);
 

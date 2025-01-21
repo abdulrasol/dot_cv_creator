@@ -206,7 +206,7 @@ class _FormSectionState extends State<FormSection> {
           certificationSection(context, widget.cv.certifications),
           const Text('Hobbies'),
           const Divider(),
-          hobbiesSection(context, widget.cv.hobies),
+          hobbiesSection(context, widget.cv.hobbies),
           const Text('Social'),
           const Divider(),
           socialSection(context, widget.cv.socials),
@@ -677,7 +677,7 @@ class _FormSectionState extends State<FormSection> {
             height: 200.rs,
             width: 200.rs,
             child: Stack(
-              textDirection: TextDirection.ltr,
+              textDirection: TextDirection.rtl,
               children: [
                 Positioned(
                   child: CircleAvatar(

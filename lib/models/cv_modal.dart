@@ -14,8 +14,9 @@ class CvModal {
     required this.educations,
     required this.experiences,
     required this.certifications,
-    required this.hobies,
+    required this.hobbies,
     required this.socials,
+    this.cvLanguages = TextDirection.ltr,
   });
 
   String name;
@@ -31,8 +32,10 @@ class CvModal {
   List<Map<String, String>> educations;
   List<Map<String, String>> experiences;
   List<Map<String, String>> certifications;
-  List<String> hobies;
+  List<String> hobbies;
   List<Map<String, dynamic>> socials;
+
+  TextDirection cvLanguages;
 
   // **نسخ الكائن لتحديث البيانات**
   CvModal copyWith({
@@ -43,6 +46,7 @@ class CvModal {
     String? phone,
     String? email,
     String? address,
+    TextDirection? cvLanguages,
     //List<String>? skills,
     List<Map<String, dynamic>>? skills,
     List<Map<String, int>>? langauges,
@@ -53,21 +57,21 @@ class CvModal {
     List<Map<String, dynamic>>? socials,
   }) {
     return CvModal(
-      name: name ?? this.name,
-      jobTitle: jobTitle ?? this.jobTitle,
-      profileImage: profileImage ?? this.profileImage,
-      profile: profile ?? this.profile,
-      phone: phone ?? this.phone,
-      email: email ?? this.email,
-      address: address ?? this.address,
-      skills: skills ?? this.skills,
-      langauges: langauges ?? this.langauges,
-      educations: educations ?? this.educations,
-      experiences: experiences ?? this.experiences,
-      certifications: certifications ?? this.certifications,
-      hobies: hobies ?? this.hobies,
-      socials: socials ?? this.socials,
-    );
+        name: name ?? this.name,
+        jobTitle: jobTitle ?? this.jobTitle,
+        profileImage: profileImage ?? this.profileImage,
+        profile: profile ?? this.profile,
+        phone: phone ?? this.phone,
+        email: email ?? this.email,
+        address: address ?? this.address,
+        skills: skills ?? this.skills,
+        langauges: langauges ?? this.langauges,
+        educations: educations ?? this.educations,
+        experiences: experiences ?? this.experiences,
+        certifications: certifications ?? this.certifications,
+        hobbies: hobies ?? this.hobbies,
+        socials: socials ?? this.socials,
+        cvLanguages: cvLanguages ?? this.cvLanguages);
   }
 
   // **إضافة وحذف اللغات**
@@ -119,11 +123,11 @@ class CvModal {
 
   // **إضافة وحذف الهوايات**
   void addHobby(String hobby) {
-    hobies.add(hobby);
+    hobbies.add(hobby);
   }
 
   void removeHobby(String hobbyName) {
-    hobies.removeWhere((hobby) => hobby == hobbyName);
+    hobbies.removeWhere((hobby) => hobby == hobbyName);
   }
 
   // **إضافة وحذف مواقع التواصل**

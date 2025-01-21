@@ -128,9 +128,10 @@ class _FormPageState extends ConsumerState<FormPage> {
               onPressed: () {
                 Flexify.go(
                   PreivewWidget(
-                      textStyle: GoogleFonts.tajawal(),
-                      textColor: Colors.black87,
-                      backgroundColor: Colors.white70),
+                    textStyle: GoogleFonts.tajawal(),
+                    textColor: Colors.black87,
+                    backgroundColor: Colors.white70,
+                  ),
                 );
               },
               child: const Text('preview'))
@@ -179,7 +180,7 @@ class _FormPageState extends ConsumerState<FormPage> {
                   'Languages', 4, languagesSection(context, cv.langauges)),
               accordingItem('Certifications', 5,
                   certificationSection(context, cv.certifications)),
-              accordingItem('Hobbies', 6, hobbiesSection(context, cv.hobies)),
+              accordingItem('Hobbies', 6, hobbiesSection(context, cv.hobbies)),
               accordingItem(
                   'Social links', 7, socialSection(context, cv.socials)),
             ],
@@ -842,7 +843,7 @@ class _FormPageState extends ConsumerState<FormPage> {
         height: 200.rs,
         width: 200.rs,
         child: Stack(
-          textDirection: TextDirection.ltr,
+          textDirection: TextDirection.rtl,
           children: [
             Positioned(
               child: CircleAvatar(

@@ -9,10 +9,11 @@ class CvNotifier extends StateNotifier<CvModal> {
   CvNotifier()
       : super(
           CvModal(
-            name: '', 
+            name: '',
             jobTitle: '',
             profileImage: '',
-            profile: '', phone: '',
+            profile: '',
+            phone: '',
             email: '',
             address: '',
             skills: [],
@@ -20,7 +21,7 @@ class CvNotifier extends StateNotifier<CvModal> {
             educations: [],
             experiences: [],
             certifications: [],
-            hobies: [],
+            hobbies: [],
             socials: [],
           ),
         );
@@ -130,6 +131,10 @@ class CvNotifier extends StateNotifier<CvModal> {
   void removeSocial(IconData key) {
     state.removeSocial(key);
     state = state.copyWith();
+  }
+
+  void changeLang(TextDirection lang) {
+    state = state.copyWith(cvLanguages: lang);
   }
 }
 /*

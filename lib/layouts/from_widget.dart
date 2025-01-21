@@ -95,12 +95,45 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
   @override
   Widget build(BuildContext context) {
     final cv = ref.watch(cvProvider);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // name
+          // اختيار اللغة
+
+          ListTile(
+            onTap: () {
+              ref.read(cvProvider.notifier).changeLang(TextDirection.rtl);
+            },
+            title: const Text('لغة السيرة الذاتية عربية!'),
+            leading: Radio<TextDirection>(
+              value: TextDirection.rtl,
+              groupValue: cv.cvLanguages,
+              onChanged: (TextDirection? lang) {
+                setState(() {
+                  ref.read(cvProvider.notifier).changeLang(lang!);
+                });
+              },
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              ref.read(cvProvider.notifier).changeLang(TextDirection.ltr);
+            },
+            title: const Text('Resume language is English!'),
+            leading: Radio<TextDirection>(
+              value: TextDirection.ltr,
+              groupValue: cv.cvLanguages,
+              onChanged: (TextDirection? lang) {
+                setState(() {
+                  ref.read(cvProvider.notifier).changeLang(lang!);
+                });
+              },
+            ),
+          ),
+
           ExpansionPanelList(
             children: [
               accordingItem('Your Personal Details', 0,
@@ -116,7 +149,7 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
               accordingItem('Certifications & Training', 5,
                   certificationSection(context, cv.certifications)),
               accordingItem(
-                  'Your Interests', 6, hobbiesSection(context, cv.hobies)),
+                  'Your Interests', 6, hobbiesSection(context, cv.hobbies)),
               accordingItem('Social Media Profiles', 7,
                   socialSection(context, cv.socials)),
             ],
@@ -183,11 +216,10 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
               }),
             ),
             child: CircleAvatar(
-              radius: 50.rs,
-              backgroundImage: NetworkImage(
-                image ?? 'https://placehold.co/600x400/png',
-              ),
-            ),
+                radius: 50.rs,
+                backgroundImage: cv.profileImage != null
+                    ? NetworkImage(image)
+                    : const AssetImage('assets/images/avatar.png')),
           ),
         ),
 
@@ -462,12 +494,19 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
   }
 
   Widget educationSection(context, List<Map<String, String>> educations) {
-    final List<String> degrees = [
-      'Associate Degree',
-      'Bachelor\'s Degree',
-      'Master\'s Degree',
-      "Doctoral Degree"
-    ];
+    final List<String> degrees = cv.cvLanguages == TextDirection.rtl
+        ? [
+            'درجة الزمالة',
+            'درجة البكالوريوس',
+            'درجة الماجستير',
+            'درجة الدكتوراه'
+          ]
+        : [
+            'Associate Degree',
+            'Bachelor\'s Degree',
+            'Master\'s Degree',
+            "Doctoral Degree"
+          ];
     GlobalKey<FormState> eduFormKey = GlobalKey<FormState>();
     final RoundedLoadingButtonController btnController =
         RoundedLoadingButtonController();
@@ -733,11 +772,14 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
                     onPressed: () {
                       if (expFormKey.currentState!.validate() &&
                           startDateExp != null) {
+                        String endDate = cv.cvLanguages == TextDirection.rtl
+                            ? 'الى الآن'
+                            : 'unitl now';
                         ref.read(cvProvider.notifier).addExperiences({
                           'at': expAtController.text,
                           'title': expTitleController.text,
                           'text': expTextController.text,
-                          'date': '$startDateExp- ${endDateExp ?? 'unitl now!'}'
+                          'date': '$startDateExp- ${endDateExp ?? endDate}'
                         });
                         expAtController.clear();
                         expTitleController.clear();
@@ -769,7 +811,7 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
         height: 200.rs,
         width: 200.rs,
         child: Stack(
-          textDirection: TextDirection.ltr,
+          textDirection: TextDirection.rtl,
           children: [
             Positioned(
               child: CircleAvatar(

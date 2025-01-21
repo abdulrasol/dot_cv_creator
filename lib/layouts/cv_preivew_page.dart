@@ -32,6 +32,7 @@ class CvPreivewPage extends StatelessWidget {
         textStyle: textStyle,
         textColor: color,
         backgroundColor: backgroundColor,
+      
       ),
     );
   }

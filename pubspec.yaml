@@ -46,7 +46,6 @@ dependencies:
   flutter_to_pdf: ^0.2.2
   widgets_to_image: ^1.0.0
   flutter_material_color_picker: ^1.2.0
-  widgets_to_png: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +73,7 @@ flutter:
     - assets/images/templates/1.png
     - assets/images/templates/2.png
     - assets/images/templates/3.png
+    - assets/images/avatar.png
     - assets/gif/logo.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see

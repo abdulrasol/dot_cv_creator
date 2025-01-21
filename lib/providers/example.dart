@@ -58,7 +58,7 @@ class ExampleOne extends StateNotifier<CvModal> {
                 'date': 'nov 2019',
               }
             ],
-            hobies: [
+            hobbies: [
               'Travel',
               'Reading',
               'Exploration',
