@@ -32,9 +32,17 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Center(
-                    child: Image.asset(
-                      'assets/gif/logo.gif',
+                    child: LayoutBuilder(
+                      builder: (context, boxConstraint) {
+                        // mobile
+                        return mediaQuery(
+                          boxConstraint,
+                          Image.asset('assets/gif/logo.gif'),
+                        );
+                      },
                     ),
+
+                    //
                   ),
                 ),
                 Center(
