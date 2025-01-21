@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
@@ -28,6 +29,14 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 50.verticalSpace,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/gif/logo.gif',
+                    ),
+                  ),
+                ),
                 Center(
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(

@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_flutter/icons_flutter.dart';
 import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
-import 'package:widgets_to_png/widgets_to_png.dart';
-import 'package:widgets_to_png/widgets_to_png.dart';
 
 class ExportPage extends StatefulWidget {
   const ExportPage({
