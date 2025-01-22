@@ -18,11 +18,7 @@ class CvModal {
     required this.hobbies,
     required this.socials,
     this.cvLanguages = TextDirection.ltr,
-  }) {
-    this.cvLanguages = ui.window.locale.languageCode == 'ar'
-        ? TextDirection.rtl
-        : TextDirection.ltr;
-  }
+  });
 
   String name;
   String jobTitle;

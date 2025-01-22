@@ -10,21 +10,23 @@ class CvNotifier extends StateNotifier<CvModal> {
   CvNotifier()
       : super(
           CvModal(
-            name: '',
-            jobTitle: '',
-            profileImage: '',
-            profile: '',
-            phone: '',
-            email: '',
-            address: '',
-            skills: [],
-            langauges: [],
-            educations: [],
-            experiences: [],
-            certifications: [],
-            hobbies: [],
-            socials: [],
-          ),
+              name: '',
+              jobTitle: '',
+              profileImage: '',
+              profile: '',
+              phone: '',
+              email: '',
+              address: '',
+              skills: [],
+              langauges: [],
+              educations: [],
+              experiences: [],
+              certifications: [],
+              hobbies: [],
+              socials: [],
+              cvLanguages: ui.window.locale.languageCode == 'ar'
+                  ? TextDirection.rtl
+                  : TextDirection.ltr),
         );
 
   // update name
