@@ -2,6 +2,7 @@ import 'package:dot_cv_creator/layouts/warper.dart';
 import 'package:flexify/flexify.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -24,7 +25,8 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: TextButton(
-                          onPressed: () {}, child: const Text('About')),
+                          onPressed: () {},
+                          child: Text(AppLocalizations.of(context)!.about)),
                     )
                   ],
                 ),
@@ -64,13 +66,13 @@ class HomePage extends StatelessWidget {
                         animationDuration: const Duration(milliseconds: 500),
                       );
                     },
-                    child: const Text('Create Your CV'),
+                    child: Text(AppLocalizations.of(context)!.startCreateBttun),
                   ),
                 ),
                 50.verticalSpace,
                 const Divider(),
                 10.verticalSpace,
-                const Text('Inspiration Gallery'),
+                Text(AppLocalizations.of(context)!.galleryTitle),
                 Wrap(
                   alignment: WrapAlignment.center,
                   spacing: 10,

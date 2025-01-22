@@ -69,7 +69,7 @@ class CvModal {
         educations: educations ?? this.educations,
         experiences: experiences ?? this.experiences,
         certifications: certifications ?? this.certifications,
-        hobbies: hobies ?? this.hobbies,
+        hobbies: hobies ?? hobbies,
         socials: socials ?? this.socials,
         cvLanguages: cvLanguages ?? this.cvLanguages);
   }

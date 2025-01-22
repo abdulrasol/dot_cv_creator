@@ -4,6 +4,7 @@ import 'package:dot_cv_creator/save/export1.dart';
 import 'package:flexify/flexify.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Warper extends StatelessWidget {
   const Warper({super.key});
@@ -12,7 +13,7 @@ class Warper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Begin Crafting Your Professional CV'),
+        title: Text(AppLocalizations.of(context)!.warper__title),
         actions: [
           TextButton(
               onPressed: () {
@@ -20,7 +21,8 @@ class Warper extends StatelessWidget {
                   const ExportPage(),
                 );
               },
-              child: const Text('View and Download Your CV'))
+              child: Text(AppLocalizations.of(context)!
+                  .warper__view_and_download_your_cv_btn))
         ],
       ),
       body: LayoutBuilder(

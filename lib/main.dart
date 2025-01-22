@@ -6,9 +6,9 @@ import 'package:dot_cv_creator/layouts/preivew_widget.dart';
 import 'package:dot_cv_creator/save/export2.dart';
 import 'package:flutter/material.dart';
 import 'package:flexify/flexify.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -25,12 +25,8 @@ class MyApp extends StatelessWidget {
       designHeight: 812,
       app: MaterialApp(
         debugShowCheckedModeBanner: false,
-        supportedLocales: const [Locale('ar'), Locale('en')],
-        localizationsDelegates: const [
-          GlobalCupertinoLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate
-        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
         title: 'Dot CV Creator!',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
