@@ -46,6 +46,9 @@ dependencies:
   flutter_to_pdf: ^0.2.2
   widgets_to_image: ^1.0.0
   flutter_material_color_picker: ^1.2.0
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   flutter_test:
