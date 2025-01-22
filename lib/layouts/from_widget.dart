@@ -105,7 +105,9 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
 
           ListTile(
             onTap: () {
-              ref.read(cvProvider.notifier).changeLang(TextDirection.rtl);
+              setState(() {
+                ref.read(cvProvider.notifier).changeLang(TextDirection.rtl);
+              });
             },
             title: const Text('لغة السيرة الذاتية عربية!'),
             leading: Radio<TextDirection>(
@@ -120,7 +122,9 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
           ),
           ListTile(
             onTap: () {
-              ref.read(cvProvider.notifier).changeLang(TextDirection.ltr);
+              setState(() {
+                ref.read(cvProvider.notifier).changeLang(TextDirection.ltr);
+              });
             },
             title: const Text('Resume language is English!'),
             leading: Radio<TextDirection>(
