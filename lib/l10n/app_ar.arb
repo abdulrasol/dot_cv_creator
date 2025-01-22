@@ -1,249 +1,339 @@
 {
-    "@@locale": "ar",
-    "appTitle": "dot.CV تطبيق لإنشاء السيرة الذاتية!",
-    "@appTitle": {},
-    "about": "حول",
-    "@about": {},
-    "startCreateBttun": "أنشئ سيرتك الذاتية",
-    "@startCreateBttun": {},
-    "galleryTitle": "معرض الإلهام.",
-    "@galleryTitle": {},
-    "howtoReachYou": "كيف يمكن الوصول إليك",
-    "@howtoReachYou": {},
-    "skills": "مهاراتك",
-    "@skills": {},
-    "addSkills": "إضافة مهارات",
-    "@addSkills": {},
-    "addDegree": "إضافة شهادة: ",
-    "@addDegree": {},
-    "addbuttonText": "إضافة",
-    "@addbuttonText": {},
-    "startStudy": "بدأت: {date}",
-    "@startStudy": {
-      "placeholders": {
-        "date": {
-          "type": "String"
-        }
+  "@@locale": "ar",
+  "appTitle": "dot.CV تطبيق لإنشاء السيرة الذاتية!",
+  "@appTitle": {},
+  "about": "حول",
+  "@about": {},
+  "startCreateBttun": "أنشئ سيرتك الذاتية",
+  "@startCreateBttun": {},
+  "galleryTitle": "معرض الإلهام.",
+  "@galleryTitle": {},
+  "howtoReachYou": "كيف يمكن الوصول إليك",
+  "@howtoReachYou": {},
+  "skills": "مهاراتك",
+  "@skills": {},
+  "addSkills": "إضافة مهارات",
+  "@addSkills": {},
+  "addDegree": "إضافة شهادة: ",
+  "@addDegree": {},
+  "addbuttonText": "إضافة",
+  "@addbuttonText": {},
+  "startStudy": "بدأت: {date}",
+  "@startStudy": {
+    "placeholders": {
+      "date": {
+        "type": "String"
       }
-    },
-    "graduated": "تخرجت: {date}",
-    "@graduated": {
-      "type": "text",
-      "placeholders": {
-        "date": {
-          "type": "String"
-        }
-      }
-    },
-    "experiences": "{title} في ${at}",
-    "@experiences": {
-      "type": "text",
-      "placeholders": {
-        "title": {
-          "type": "String"
-        },
-        "at": {
-          "type": "String"
-        }
-      }
-    },
-    "experiencesDate": "{text} - {date}",
-    "@experiencesDate": {
-      "type": "text",
-      "placeholders": {
-        "text": {
-          "type": "String"
-        },
-        "date": {
-          "type": "String"
-        }
-      }
-    },
-    "from__addExperiences": "إضافة تجربة: ",
-    "@from__addExperiences": {
-      "type": "text"
-    },
-    "from__start_startdateexp_click_to_select": "البداية: {date}",
-    "@from__start_startdateexp_click_to_select": {
-      "type": "text",
-      "placeholders": {
-        "date": {
-          "type": "String",
-          "fallback": "انقر لتحديد التاريخ"
-        }
-      }
-    },
-    "from__end_enddateexp_now": "النهاية: {date}",
-    "@from__end_enddateexp_now": {
-      "type": "text",
-      "placeholders": {
-        "date": {
-          "type": "String",
-          "fallback": "حتى الآن"
-        }
-      }
-    },
-    "from__from_certification_index_from": "من: {from}",
-    "@from__from_certification_index_from": {
-      "type": "text",
-      "placeholders": {
-        "from": {
-          "type": "String"
-        }
-      }
-    },
-    "from__add_a_certification": "إضافة شهادة: ",
-    "@from__add_a_certification": {
-      "type": "text"
-    },
-    "from__ExpDate": "البداية: {date}",
-    "@from__ExpDate": {
-      "type": "text",
-      "placeholders": {
-        "date": {
-          "type": "String"
-        }
-      }
-    },
-    "from__educations_deg_in_title": "{deg} في {title}",
-    "@from__educations_deg_in_title": {
-      "type": "text",
-      "placeholders": {
-        "deg": {
-          "type": "String"
-        },
-        "title": {
-          "type": "String"
-        }
-      }
-    },
-    "from__educations_from_on_date": "من {uni} في {date}",
-    "@from__educations_from_on_date": {
-      "type": "text",
-      "placeholders": {
-        "uni": {
-          "type": "String"
-        },
-        "date": {
-          "type": "String"
-        }
-      }
-    },
-    "from__edu_started": "بدأت: {date}",
-    "@from__edu_started": {
-      "type": "text",
-      "placeholders": {
-        "date": {
-          "type": "String"
-        }
-      }
-    },
-    "warper__title": "ابدأ في إنشاء سيرتك الذاتية الاحترافية",
-    "@warper__title": {
-      "type": "text"
-    },
-    "warper__view_and_download_your_cv_btn": "عرض وتنزيل سيرتك الذاتية",
-    "@warper__view_and_download_your_cv_btn": {
-      "type": "text"
-    },
-    "from__diploma_degree": "دبلوم",
-    "@from__diploma_degree": {
-      "type": "text"
-    },
-    "from__bachelor_degree": "بكالوريوس",
-    "@from__bachelor_degree": {
-      "type": "text"
-    },
-    "from__master_degree": "ماجستير",
-    "@from__master_degree": {
-      "type": "text"
-    },
-    "from__doctoral_degree": "دكتوراه",
-    "@from__doctoral_degree": {
-      "type": "text"
-    },
-    "from__university_name": "اسم الجامعة",
-    "@from__university_name": {
-      "type": "text"
-    },
-    "from__this_section_is_required": "هذا القسم مطلوب!",
-    "@from__this_section_is_required": {
-      "type": "text"
-    },
-    "from__department_name": "اسم القسم",
-    "@from__department_name": {
-      "type": "text"
-    },
-    "from__the_degree": "الدرجة العلمية",
-    "@from__the_degree": {
-      "type": "text"
-    },
-    "from__name_label": "الاسم",
-    "@from__name_label": {
-      "type": "text"
-    },
-    "from__job_title_label": "المسمى الوظيفي",
-    "@from__job_title_label": {
-      "type": "text"
-    },
-    "from__phone_label": "الهاتف",
-    "@from__phone_label": {
-      "type": "text"
-    },
-    "from__email_label": "البريد الإلكتروني",
-    "@from__email_label": {
-      "type": "text"
-    },
-    "from__address_label": "العنوان",
-    "@from__address_label": {
-      "type": "text"
-    },
-    "from__profile_label": "الملف الشخصي",
-    "@from__profile_label": {
-      "type": "text"
-    },
-    "from__add_soft_skills_label": "إضافة مهارات ناعمة",
-    "@from__add_soft_skills_label": {
-      "type": "text"
-    },
-    "from__level_label": "المستوى",
-    "@from__level_label": {
-      "type": "text"
-    },
-    "from__add_language_label": "إضافة لغة",
-    "@from__add_language_label": {
-      "type": "text"
-    },
-    "from__company_label": "الشركة",
-    "@from__company_label": {
-      "type": "text"
-    },
-    "from__summery_label": "ملخص",
-    "@from__summery_label": {
-      "type": "text"
-    },
-    "from__certification_title_label": "عنوان الشهادة",
-    "@from__certification_title_label": {
-      "type": "text"
-    },
-    "from__ertification_issued_from_label": "صادر من",
-    "@from__ertification_issued_from_label": {
-      "type": "text"
-    },
-    "from__add_hobies_label": "إضافة هوايات",
-    "@from__add_hobies_label": {
-      "type": "text"
-    },
-    "from__platform_label": "المنصة",
-    "@from__platform_label": {
-      "type": "text"
-    },
-    "from__add_helper_text": "أضف @ لاسم المستخدم أو # مثل إنستا: @username",
-    "@from__add_helper_text": {
-      "type": "text"
-    },
-    "from__username_label": "اسم المستخدم",
-    "@from__username_label": {
-      "type": "text"
     }
+  },
+  "graduated": "تخرجت: {date}",
+  "@graduated": {
+    "type": "text",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "experiences": "{title} في ${at}",
+  "@experiences": {
+    "type": "text",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "at": {
+        "type": "String"
+      }
+    }
+  },
+  "experiencesDate": "{text} - {date}",
+  "@experiencesDate": {
+    "type": "text",
+    "placeholders": {
+      "text": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "from__addExperiences": "إضافة تجربة: ",
+  "@from__addExperiences": {
+    "type": "text"
+  },
+  "from__start_startdateexp_click_to_select": "البداية: {date}",
+  "@from__start_startdateexp_click_to_select": {
+    "type": "text",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "from__end_enddateexp_now": "النهاية: {date}",
+  "@from__end_enddateexp_now": {
+    "type": "text",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "from__from_certification_index_from": "من: {from}",
+  "@from__from_certification_index_from": {
+    "type": "text",
+    "placeholders": {
+      "from": {
+        "type": "String"
+      }
+    }
+  },
+  "from__add_a_certification": "إضافة شهادة: ",
+  "@from__add_a_certification": {
+    "type": "text"
+  },
+  "from__ExpDate": "البداية: {date}",
+  "@from__ExpDate": {
+    "type": "text",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "from__educations_deg_in_title": "{deg} في {title}",
+  "@from__educations_deg_in_title": {
+    "type": "text",
+    "placeholders": {
+      "deg": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "from__educations_from_on_date": "من {uni} في {date}",
+  "@from__educations_from_on_date": {
+    "type": "text",
+    "placeholders": {
+      "uni": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "from__edu_started": "بدأت: {date}",
+  "@from__edu_started": {
+    "type": "text",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "warper__title": "ابدأ في إنشاء سيرتك الذاتية الاحترافية",
+  "@warper__title": {
+    "type": "text"
+  },
+  "warper__view_and_download_your_cv_btn": "عرض وتنزيل سيرتك الذاتية",
+  "@warper__view_and_download_your_cv_btn": {
+    "type": "text"
+  },
+  "from__diploma_degree": "دبلوم",
+  "@from__diploma_degree": {
+    "type": "text"
+  },
+  "from__bachelor_degree": "بكالوريوس",
+  "@from__bachelor_degree": {
+    "type": "text"
+  },
+  "from__master_degree": "ماجستير",
+  "@from__master_degree": {
+    "type": "text"
+  },
+  "from__doctoral_degree": "دكتوراه",
+  "@from__doctoral_degree": {
+    "type": "text"
+  },
+  "from__university_name": "اسم الجامعة",
+  "@from__university_name": {
+    "type": "text"
+  },
+  "from__this_section_is_required": "هذا القسم مطلوب!",
+  "@from__this_section_is_required": {
+    "type": "text"
+  },
+  "from__department_name": "اسم القسم",
+  "@from__department_name": {
+    "type": "text"
+  },
+  "from__the_degree": "الدرجة العلمية",
+  "@from__the_degree": {
+    "type": "text"
+  },
+  "from__name_label": "الاسم",
+  "@from__name_label": {
+    "type": "text"
+  },
+  "from__job_title_label": "المسمى الوظيفي",
+  "@from__job_title_label": {
+    "type": "text"
+  },
+  "from__phone_label": "الهاتف",
+  "@from__phone_label": {
+    "type": "text"
+  },
+  "from__email_label": "البريد الإلكتروني",
+  "@from__email_label": {
+    "type": "text"
+  },
+  "from__address_label": "العنوان",
+  "@from__address_label": {
+    "type": "text"
+  },
+  "from__profile_label": "الملف الشخصي",
+  "@from__profile_label": {
+    "type": "text"
+  },
+  "from__add_soft_skills_label": "إضافة مهارات",
+  "@from__add_soft_skills_label": {
+    "type": "text"
+  },
+  "from__level_label": "المستوى",
+  "@from__level_label": {
+    "type": "text"
+  },
+  "from__add_language_label": "إضافة لغة",
+  "@from__add_language_label": {
+    "type": "text"
+  },
+  "from__company_label": "الشركة",
+  "@from__company_label": {
+    "type": "text"
+  },
+  "from__summery_label": "ملخص",
+  "@from__summery_label": {
+    "type": "text"
+  },
+  "from__certification_title_label": "عنوان الشهادة",
+  "@from__certification_title_label": {
+    "type": "text"
+  },
+  "from__ertification_issued_from_label": "صادر من",
+  "@from__ertification_issued_from_label": {
+    "type": "text"
+  },
+  "from__add_hobies_label": "إضافة هوايات",
+  "@from__add_hobies_label": {
+    "type": "text"
+  },
+  "from__platform_label": "المنصة",
+  "@from__platform_label": {
+    "type": "text"
+  },
+  "from__add_helper_text": "أضف @ لاسم المستخدم أو # مثل إنستا: @username",
+  "@from__add_helper_text": {
+    "type": "text"
+  },
+  "from__username_label": "اسم المستخدم",
+  "@from__username_label": {
+    "type": "text"
+  },
+  "from_personal_details_label": "تفاصيلك الشخصية",
+  "@from_personal_details_label": {
+    "type": "text"
+  },
+  "from__your_educational_background_label": "خلفيتك التعليمية",
+  "@from__your_educational_background_label": {
+    "type": "text"
+  },
+  "from__highlight_your_strengths_label": "سلط الضوء على نقاط قوتك",
+  "@from__highlight_your_strengths_label": {
+    "type": "text"
+  },
+  "from__career_highlights_label": "أبرز المحطات المهنية",
+  "@from__career_highlights_label": {
+    "type": "text"
+  },
+  "from__languages_you_speak_label": "اللغات التي تتحدثها",
+  "@from__languages_you_speak_label": {
+    "type": "text"
+  },
+  "from__certifications_training_label": "الشهادات والدورات التدريبية",
+  "@from__certifications_training_label": {
+    "type": "text"
+  },
+  "from__your_interests_label": "اهتماماتك",
+  "@from__your_interests_label": {
+    "type": "text"
+  },
+  "from__social_media_profiles_label": "حسابات التواصل الاجتماعي",
+  "@from__social_media_profiles_label": {
+    "type": "text"
+  },
+  "from__beginner_level": "مبتدئ",
+  "@from__beginner_level": {
+    "type": "text"
+  },
+  "from__moderate_level": "متوسط",
+  "@from__moderate_level": {
+    "type": "text"
+  },
+  "from__good_level": "جيد",
+  "@from__good_level": {
+    "type": "text"
+  },
+  "from__very_good_level": "جيد جدًا",
+  "@from__very_good_level": {
+    "type": "text"
+  },
+  "from__fluent_level": "فصيح",
+  "@from__fluent_level": {
+    "type": "text"
+  },
+  "from__click_to_select": "اضغط للاختيار",
+  "@from__click_to_select": {
+    "type": "text"
+  },
+  "from__unitl_now": "لازلت في العمل",
+  "@from__unitl_now": {
+    "type": "text"
+  },
+  "export__export_cv_save_and_download": "تصدير ( حفظ وتنزيل)",
+  "@export__export_cv_save_and_download": {
+    "type": "text"
+  },
+  "export__personalize_your_cv": "تخصيص سيرتك الذاتية",
+  "@export__personalize_your_cv": {
+    "type": "text"
+  },
+  "export__pick_a_font_style": "اختيار الخطوط",
+  "@export__pick_a_font_style": {
+    "type": "text"
+  },
+  "export__pick_your_cv_colors": "اختيار الالوان",
+  "@export__pick_your_cv_colors": {
+    "type": "text"
+  },
+  "export__select_a_font_for_your_cv": "اختيار نوع الخط",
+  "@export__select_a_font_for_your_cv": {
+    "type": "text"
+  },
+  "export__select_text_and_background_colors": "اختيار الوان الخلفية والنصوص",
+  "@export__select_text_and_background_colors": {
+    "type": "text"
+  },
+  "export__select_a_color_for_text": "اختر لون النصوص",
+  "@export__select_a_color_for_text": {
+    "type": "text"
+  },
+  "export__select_a_background_shade": "اختر لون الخلفية",
+  "@export__select_a_background_shade": {
+    "type": "text"
   }
+}

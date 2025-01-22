@@ -1,6 +1,7 @@
 import 'package:dot_cv_creator/models/cv_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
+import 'dart:ui' as ui; //
 
 final cvProvider =
     StateNotifierProvider<CvNotifier, CvModal>((ref) => CvNotifier());

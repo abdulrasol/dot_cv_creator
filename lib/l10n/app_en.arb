@@ -68,8 +68,7 @@
     "type": "text",
     "placeholders": {
       "date": {
-        "type": "String",
-        "fallback": "click to select date"
+        "type": "String"
       }
     }
   },
@@ -78,8 +77,7 @@
     "type": "text",
     "placeholders": {
       "date": {
-        "type": "String",
-        "fallback": "Still"
+        "type": "String"
       }
     }
   },
@@ -202,7 +200,7 @@
   "@from__profile_label": {
     "type": "text"
   },
-  "from__add_soft_skills_label": "Add Soft skills",
+  "from__add_soft_skills_label": "Add skills",
   "@from__add_soft_skills_label": {
     "type": "text"
   },
@@ -244,6 +242,98 @@
   },
   "from__username_label": "username",
   "@from__username_label": {
+    "type": "text"
+  },
+  "from_personal_details_label": "Your Personal Details",
+  "@from_personal_details_label": {
+    "type": "text"
+  },
+  "from__your_educational_background_label": "Your Educational Background",
+  "@from__your_educational_background_label": {
+    "type": "text"
+  },
+  "from__highlight_your_strengths_label": "Highlight Your Strengths",
+  "@from__highlight_your_strengths_label": {
+    "type": "text"
+  },
+  "from__career_highlights_label": "Career Highlights",
+  "@from__career_highlights_label": {
+    "type": "text"
+  },
+  "from__languages_you_speak_label": "Languages You Speak",
+  "@from__languages_you_speak_label": {
+    "type": "text"
+  },
+  "from__certifications_training_label": "Certifications & Training",
+  "@from__certifications_training_label": {
+    "type": "text"
+  },
+  "from__your_interests_label": "Your Interests",
+  "@from__your_interests_label": {
+    "type": "text"
+  },
+  "from__social_media_profiles_label": "Social Media Profiles",
+  "@from__social_media_profiles_label": {
+    "type": "text"
+  },
+  "from__beginner_level": " 'Beginner",
+  "@from__beginner_level": {
+    "type": "text"
+  },
+  "from__moderate_level": "Moderate",
+  "@from__moderate_level": {
+    "type": "text"
+  },
+  "from__good_level": "Good",
+  "@from__good_level": {
+    "type": "text"
+  },
+  "from__very_good_level": "  'Very good",
+  "@from__very_good_level": {
+    "type": "text"
+  },
+  "from__fluent_level": " 'Fluent",
+  "@from__fluent_level": {
+    "type": "text"
+  },
+  "from__click_to_select": "click to select",
+  "@from__click_to_select": {
+    "type": "text"
+  },
+  "from__unitl_now": "unitl now",
+  "@from__unitl_now": {
+    "type": "text"
+  },
+  "export__export_cv_save_and_download": "Export CV (Save and Download)",
+  "@export__export_cv_save_and_download": {
+    "type": "text"
+  },
+  "export__personalize_your_cv": "Personalize Your CV",
+  "@export__personalize_your_cv": {
+    "type": "text"
+  },
+  "export__pick_a_font_style": "Pick a Font Style",
+  "@export__pick_a_font_style": {
+    "type": "text"
+  },
+  "export__pick_your_cv_colors": "Pick Your CV Colors",
+  "@export__pick_your_cv_colors": {
+    "type": "text"
+  },
+  "export__select_a_font_for_your_cv": "Select a Font for Your CV",
+  "@export__select_a_font_for_your_cv": {
+    "type": "text"
+  },
+  "export__select_text_and_background_colors": "Select Text and Background Colors",
+  "@export__select_text_and_background_colors": {
+    "type": "text"
+  },
+  "export__select_a_color_for_text": "Select a Color for Text",
+  "@export__select_a_color_for_text": {
+    "type": "text"
+  },
+  "export__select_a_background_shade": "Select a Background Shade",
+  "@export__select_a_background_shade": {
     "type": "text"
   }
 }

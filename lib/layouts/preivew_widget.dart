@@ -386,7 +386,10 @@ class PreivewWidget extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildProfileSection(cv, headerStyle, bodyStyle, pageWidth, labels),
+          cv.profile != ''
+              ? _buildProfileSection(
+                  cv, headerStyle, bodyStyle, pageWidth, labels)
+              : 10.horizontalSpace,
           _buildDivider(pageWidth),
           _buildEducationSection(cv, headerStyle, bodyStyle, pageWidth, labels),
           _buildDivider(pageWidth),

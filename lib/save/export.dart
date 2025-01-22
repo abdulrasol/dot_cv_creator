@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_flutter/icons_flutter.dart';
 import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExportPage extends StatefulWidget {
   const ExportPage({
@@ -22,7 +23,6 @@ class ExportPage extends StatefulWidget {
 class _ExportPageState extends State<ExportPage> {
   final GlobalKey _globalKey = GlobalKey();
 
-  Uint8List? _cvImage;
   final controller = RoundedLoadingButtonController();
   final fontControllerBtn = RoundedLoadingButtonController();
   final fontType = [
@@ -53,7 +53,7 @@ class _ExportPageState extends State<ExportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Export CV (Save and Download)"),
+        title:  Text(AppLocalizations.of(context)!.export__export_cv_save_and_download),
         actions: [
           IconButton(
             onPressed: () async {
@@ -71,20 +71,20 @@ class _ExportPageState extends State<ExportPage> {
           Wrap(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Personalize Your CV'),
+               Text(AppLocalizations.of(context)!.export__personalize_your_cv),
               40.horizontalSpace,
               TextButton.icon(
                 onPressed: () async {
                   await fontTypeDialog(context);
                 },
-                label: const Text('Pick a Font Style'),
+                label:  Text(AppLocalizations.of(context)!.export__pick_a_font_style),
                 icon: const Icon(FontAwesome.font),
               ),
               TextButton.icon(
                 onPressed: () async {
                   await colorDialog(context);
                 },
-                label: const Text('Pick Your CV Colors'),
+                label:  Text(AppLocalizations.of(context)!.export__pick_your_cv_colors),
                 icon: const Icon(Icons.color_lens),
               ),
             ],
@@ -129,7 +129,7 @@ class _ExportPageState extends State<ExportPage> {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text('Select a Font for Your CV'),
+                       Text(AppLocalizations.of(context)!.export__select_a_font_for_your_cv),
                       5.verticalSpace,
                       const Divider(),
                       Wrap(
@@ -177,10 +177,10 @@ class _ExportPageState extends State<ExportPage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text('Select Text and Background Colors'),
+                       Text(AppLocalizations.of(context)!.export__select_text_and_background_colors),
                       const Divider(),
                       5.verticalSpace,
-                      const Text('Select a Color for Text'),
+                       Text(AppLocalizations.of(context)!.export__select_a_color_for_text),
                       12.verticalSpace,
                       MaterialColorPicker(
                           onColorChange: (Color color) {
@@ -191,7 +191,7 @@ class _ExportPageState extends State<ExportPage> {
                           selectedColor: Colors.red),
                       const Divider(),
                       5.verticalSpace,
-                      const Text('Select a Background Shade'),
+                       Text(AppLocalizations.of(context)!.export__select_a_background_shade),
                       12.verticalSpace,
                       MaterialColorPicker(
                           onColorChange: (Color color) {

@@ -61,14 +61,6 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
     false
   ];
 
-  final List<String> range = [
-    'Beginner',
-    'Moderate',
-    'Good',
-    'Very good',
-    'Fluent',
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -141,21 +133,41 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
 
           ExpansionPanelList(
             children: [
-              accordingItem('Your Personal Details', 0,
+              accordingItem(
+                  AppLocalizations.of(context)!.from_personal_details_label,
+                  0,
                   identifySection(context, cv, cv.profileImage)),
-              accordingItem('Your Educational Background', 1,
+              accordingItem(
+                  AppLocalizations.of(context)!
+                      .from__your_educational_background_label,
+                  1,
                   educationSection(context, cv.educations)),
-              accordingItem('Highlight Your Strengths', 2,
+              accordingItem(
+                  AppLocalizations.of(context)!
+                      .from__highlight_your_strengths_label,
+                  2,
                   skillsSection(context, cv.skills)),
-              accordingItem('Career Highlights', 3,
+              accordingItem(
+                  AppLocalizations.of(context)!.from__career_highlights_label,
+                  3,
                   experiencesSection(context, cv.experiences)),
-              accordingItem('Languages You Speak', 4,
+              accordingItem(
+                  AppLocalizations.of(context)!.from__languages_you_speak_label,
+                  4,
                   languagesSection(context, cv.langauges)),
-              accordingItem('Certifications & Training', 5,
+              accordingItem(
+                  AppLocalizations.of(context)!
+                      .from__certifications_training_label,
+                  5,
                   certificationSection(context, cv.certifications)),
               accordingItem(
-                  'Your Interests', 6, hobbiesSection(context, cv.hobbies)),
-              accordingItem('Social Media Profiles', 7,
+                  AppLocalizations.of(context)!.from__your_interests_label,
+                  6,
+                  hobbiesSection(context, cv.hobbies)),
+              accordingItem(
+                  AppLocalizations.of(context)!
+                      .from__social_media_profiles_label,
+                  7,
                   socialSection(context, cv.socials)),
             ],
             expansionCallback: (index, isOpen) {
@@ -422,6 +434,13 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
   }
 
   Column languagesSection(context, List<Map<String, dynamic>> langs) {
+    final List<String> range = [
+      AppLocalizations.of(context)!.from__beginner_level,
+      AppLocalizations.of(context)!.from__moderate_level,
+      AppLocalizations.of(context)!.from__good_level,
+      AppLocalizations.of(context)!.from__very_good_level,
+      AppLocalizations.of(context)!.from__fluent_level,
+    ];
     GlobalKey<FormState> langFormKey = GlobalKey<FormState>();
     return Column(
       children: [
@@ -620,9 +639,9 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
                         });
                       },
                       child: Text(AppLocalizations.of(context)!
-                          .from__edu_started(
-                              startDateEdu ?? 'click to select')),
-                      //'Started : ${startDateEdu ?? 'click to select'}'),
+                          .from__edu_started(startDateEdu ??
+                              AppLocalizations.of(context)!
+                                  .from__click_to_select)),
                     ),
                     TextButton(
                         onPressed: () async {
@@ -639,10 +658,10 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
                             }
                           });
                         },
-                        child: Text(AppLocalizations.of(context)!
-                            .graduated(endDateEdu ?? 'click to select'))
-                        //Text('Graduate: ${endDateEdu ?? 'click to select'}'),
-                        ),
+                        child: Text(AppLocalizations.of(context)!.graduated(
+                            endDateEdu ??
+                                AppLocalizations.of(context)!
+                                    .from__click_to_select))),
                   ],
                 ),
                 12.verticalSpace,
@@ -761,8 +780,10 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
                         }
                       });
                     },
-                    child: Text(AppLocalizations.of(context)!
-                        .from__ExpDate(startDateExp ?? 'click to select date')),
+                    child: Text(AppLocalizations.of(context)!.from__ExpDate(
+                        startDateExp ??
+                            AppLocalizations.of(context)!
+                                .from__click_to_select)),
                   ),
                   //
                   TextButton(
@@ -783,7 +804,8 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
                     },
                     child: Text(AppLocalizations.of(context)!
                         .from__end_enddateexp_now(endDateExp ??
-                            'click to select date')), //'end: ${endDateExp ?? 'Now'}'),
+                            AppLocalizations.of(context)!
+                                .from__click_to_select)),
                   ),
                 ],
               ),
@@ -795,14 +817,12 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
                     onPressed: () {
                       if (expFormKey.currentState!.validate() &&
                           startDateExp != null) {
-                        String endDate = cv.cvLanguages == TextDirection.rtl
-                            ? 'الى الآن'
-                            : 'unitl now';
                         ref.read(cvProvider.notifier).addExperiences({
                           'at': expAtController.text,
                           'title': expTitleController.text,
                           'text': expTextController.text,
-                          'date': '$startDateExp- ${endDateExp ?? endDate}'
+                          'date':
+                              '$startDateExp- ${endDateExp ?? AppLocalizations.of(context)!.from__unitl_now}'
                         });
                         expAtController.clear();
                         expTitleController.clear();
