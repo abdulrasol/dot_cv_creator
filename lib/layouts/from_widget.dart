@@ -98,36 +98,24 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
 
           ListTile(
             onTap: () {
-              setState(() {
-                ref.read(cvProvider.notifier).changeLang(TextDirection.rtl);
-              });
+              ref.read(cvProvider.notifier).changeLang(TextDirection.rtl);
             },
             title: const Text('لغة السيرة الذاتية عربية!'),
             leading: Radio<TextDirection>(
               value: TextDirection.rtl,
               groupValue: cv.cvLanguages,
-              onChanged: (TextDirection? lang) {
-                setState(() {
-                  ref.read(cvProvider.notifier).changeLang(lang!);
-                });
-              },
+              onChanged: (TextDirection? lang) {},
             ),
           ),
           ListTile(
             onTap: () {
-              setState(() {
-                ref.read(cvProvider.notifier).changeLang(TextDirection.ltr);
-              });
+              ref.read(cvProvider.notifier).changeLang(TextDirection.ltr);
             },
             title: const Text('Resume language is English!'),
             leading: Radio<TextDirection>(
               value: TextDirection.ltr,
               groupValue: cv.cvLanguages,
-              onChanged: (TextDirection? lang) {
-                setState(() {
-                  ref.read(cvProvider.notifier).changeLang(lang!);
-                });
-              },
+              onChanged: (TextDirection? lang) {},
             ),
           ),
 
@@ -215,7 +203,7 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
             onPressed: () async {
               final ImagePickerPlugin picker = ImagePickerPlugin();
               final image =
-                  await picker.getImageFromSource(source: ImageSource.camera);
+                  await picker.getImageFromSource(source: ImageSource.gallery);
               if (image?.path != null) {
                 ref.read(cvProvider.notifier).updateProfileImage(image!.path);
               }
@@ -233,10 +221,11 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
               }),
             ),
             child: CircleAvatar(
-                radius: 50.rs,
-                backgroundImage: cv.profileImage != null
-                    ? NetworkImage(image)
-                    : const AssetImage('assets/images/avatar.png')),
+              radius: 50.rs,
+              backgroundImage: cv.profileImage != ''
+                  ? NetworkImage(image)
+                  : const AssetImage('assets/images/avatar.png'),
+            ),
           ),
         ),
 

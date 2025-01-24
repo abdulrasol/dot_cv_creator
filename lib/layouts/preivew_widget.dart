@@ -150,7 +150,7 @@ class PreivewWidget extends ConsumerWidget {
         cv.profileImage != null
             ? CircleAvatar(
                 radius: pageWidth * 0.08,
-                backgroundImage: cv.profileImage != null
+                backgroundImage: cv.profileImage != ''
                     ? NetworkImage(cv.profileImage!)
                     : const AssetImage('assets/images/avatar.png'),
               )
