@@ -10,7 +10,7 @@ class CvNotifier extends StateNotifier<CvModal> {
   CvNotifier()
       : super(
           CvModal(
-              name: '',
+              name: 'AbdulRasol',
               jobTitle: '',
               profileImage: '',
               profile: '',

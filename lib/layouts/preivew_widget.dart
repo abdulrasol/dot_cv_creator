@@ -120,7 +120,7 @@ class PreivewWidget extends ConsumerWidget {
       children: [
         _buildHeader(cv, headerStyle, bodyStyle, pageWidth, labels),
         SizedBox(height: pageWidth * 0.005),
-        Divider(thickness: 1, color: textColor.withOpacity(0.3)),
+        Divider(thickness: 1, color: textColor.withValues(alpha: 0.3)),
         SizedBox(height: pageWidth * 0.01),
         Expanded(
           child: Row(
@@ -147,14 +147,15 @@ class PreivewWidget extends ConsumerWidget {
       double pageWidth, Map<String, String> labels) {
     return Row(
       children: [
-        cv.profileImage != null
+        cv.profileImage != ''
             ? CircleAvatar(
                 radius: pageWidth * 0.08,
-                backgroundImage: cv.profileImage != ''
-                    ? NetworkImage(cv.profileImage!)
-                    : const AssetImage('assets/images/avatar.png'),
+                backgroundImage: NetworkImage(cv.profileImage!),
               )
             : SizedBox(width: pageWidth * 0.03),
+        cv.profileImage != ''
+            ? SizedBox(width: pageWidth * 0.05)
+            : 0.horizontalSpace,
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
