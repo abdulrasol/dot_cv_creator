@@ -1,4 +1,5 @@
 import 'package:dot_cv_creator/models/cv_modal.dart';
+import 'package:dot_cv_creator/providers/locale_provider.dart';
 import 'package:flexify/flexify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -98,24 +99,26 @@ class _FromWidgetState extends ConsumerState<FromWidget> {
 
           ListTile(
             onTap: () {
-              ref.read(cvProvider.notifier).changeLang(TextDirection.rtl);
+              ref.read(languageProvider.notifier).state = AppLanguage.arabic;
+              //ref.read(cvProvider.notifier).changeLang(TextDirection.rtl);
             },
             title: const Text('لغة السيرة الذاتية عربية!'),
-            leading: Radio<TextDirection>(
-              value: TextDirection.rtl,
-              groupValue: cv.cvLanguages,
-              onChanged: (TextDirection? lang) {},
+            leading: Radio<AppLanguage>(
+              value: AppLanguage.arabic,
+              groupValue: ref.read(languageProvider),
+              onChanged: (AppLanguage? lang) {},
             ),
           ),
           ListTile(
             onTap: () {
-              ref.read(cvProvider.notifier).changeLang(TextDirection.ltr);
+              ref.read(languageProvider.notifier).state = AppLanguage.english;
+              //ref.read(cvProvider.notifier).changeLang(TextDirection.ltr);
             },
             title: const Text('Resume language is English!'),
-            leading: Radio<TextDirection>(
-              value: TextDirection.ltr,
-              groupValue: cv.cvLanguages,
-              onChanged: (TextDirection? lang) {},
+            leading: Radio<AppLanguage>(
+              value: AppLanguage.english,
+              groupValue: ref.read(languageProvider),
+              onChanged: (AppLanguage? lang) {},
             ),
           ),
 
