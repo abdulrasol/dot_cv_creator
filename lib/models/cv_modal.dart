@@ -17,7 +17,6 @@ class CvModal {
     required this.certifications,
     required this.hobbies,
     required this.socials,
-    this.cvLanguages = TextDirection.ltr,
   });
 
   String name;
@@ -35,8 +34,6 @@ class CvModal {
   List<Map<String, String>> certifications;
   List<String> hobbies;
   List<Map<String, dynamic>> socials;
-
-  TextDirection cvLanguages;
 
   // **نسخ الكائن لتحديث البيانات**
   CvModal copyWith({
@@ -58,21 +55,21 @@ class CvModal {
     List<Map<String, dynamic>>? socials,
   }) {
     return CvModal(
-        name: name ?? this.name,
-        jobTitle: jobTitle ?? this.jobTitle,
-        profileImage: profileImage ?? this.profileImage,
-        profile: profile ?? this.profile,
-        phone: phone ?? this.phone,
-        email: email ?? this.email,
-        address: address ?? this.address,
-        skills: skills ?? this.skills,
-        langauges: langauges ?? this.langauges,
-        educations: educations ?? this.educations,
-        experiences: experiences ?? this.experiences,
-        certifications: certifications ?? this.certifications,
-        hobbies: hobies ?? hobbies,
-        socials: socials ?? this.socials,
-        cvLanguages: cvLanguages ?? this.cvLanguages);
+      name: name ?? this.name,
+      jobTitle: jobTitle ?? this.jobTitle,
+      profileImage: profileImage ?? this.profileImage,
+      profile: profile ?? this.profile,
+      phone: phone ?? this.phone,
+      email: email ?? this.email,
+      address: address ?? this.address,
+      skills: skills ?? this.skills,
+      langauges: langauges ?? this.langauges,
+      educations: educations ?? this.educations,
+      experiences: experiences ?? this.experiences,
+      certifications: certifications ?? this.certifications,
+      hobbies: hobies ?? hobbies,
+      socials: socials ?? this.socials,
+    );
   }
 
   // **إضافة وحذف اللغات**

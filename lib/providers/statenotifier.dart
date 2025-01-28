@@ -1,7 +1,7 @@
 import 'package:dot_cv_creator/models/cv_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
-import 'dart:ui' as ui; //
+
 
 final cvProvider =
     StateNotifierProvider<CvNotifier, CvModal>((ref) => CvNotifier());
@@ -10,7 +10,7 @@ class CvNotifier extends StateNotifier<CvModal> {
   CvNotifier()
       : super(
           CvModal(
-              name: 'AbdulRasol',
+              name: '',
               jobTitle: '',
               profileImage: '',
               profile: '',
@@ -24,9 +24,7 @@ class CvNotifier extends StateNotifier<CvModal> {
               certifications: [],
               hobbies: [],
               socials: [],
-              cvLanguages: ui.window.locale.languageCode == 'ar'
-                  ? TextDirection.rtl
-                  : TextDirection.ltr),
+            ),
         );
 
   // update name

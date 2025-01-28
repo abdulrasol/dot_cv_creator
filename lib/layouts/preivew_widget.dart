@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_flutter/icons_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PreivewWidget extends ConsumerWidget {
   const PreivewWidget({
@@ -24,77 +25,61 @@ class PreivewWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cv = ref.watch(cvProvider);
 
-    // تحديد النصوص حسب اتجاه اللغة
-    final Map<String, String> labels = cv.cvLanguages == TextDirection.rtl
-        ? {
-            'contactDetails': 'معلومات التواصل',
-            'skills': 'المهارات',
-            'languages': 'اللغات',
-            'hobbies': 'الهوايات',
-            'socials': 'التواصل الاجتماعي',
-            'profile': 'نبذة تعريفية',
-            'education': 'التعليم',
-            'experience': 'الخبرات',
-            'certifications': 'الشهادات',
-          }
-        : {
-            'contactDetails': 'Contact Details',
-            'skills': 'Skills',
-            'languages': 'Languages',
-            'hobbies': 'Hobbies',
-            'socials': 'Socials',
-            'profile': 'Profile',
-            'education': 'Education',
-            'experience': 'Experience',
-            'certifications': 'Certifications',
-          };
+    final Map<String, String> labels = {
+      'contactDetails': AppLocalizations.of(context)!.preivew__contact_details,
+      'skills': AppLocalizations.of(context)!.preivew__skills,
+      'languages': AppLocalizations.of(context)!.preivew__languages,
+      'hobbies': AppLocalizations.of(context)!.preivew__hobbies,
+      'socials': AppLocalizations.of(context)!.preivew__socials,
+      'profile': AppLocalizations.of(context)!.preivew__profile,
+      'education': AppLocalizations.of(context)!.preivew__education,
+      'experience': AppLocalizations.of(context)!.preivew__experience,
+      'certifications': AppLocalizations.of(context)!.preivew__certifications,
+    };
 
     return Scaffold(
-      body: Directionality(
-        textDirection: cv.cvLanguages,
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            // Calculate dimensions while maintaining A4 ratio
-            double pageWidth = constraints.maxWidth * 0.9;
-            double pageHeight = pageWidth * a4Ratio;
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          // Calculate dimensions while maintaining A4 ratio
+          double pageWidth = constraints.maxWidth * 0.9;
+          double pageHeight = pageWidth * a4Ratio;
 
-            // If height exceeds screen height, recalculate based on height
-            if (pageHeight > constraints.maxHeight * 0.9) {
-              pageHeight = constraints.maxHeight * 0.9;
-              pageWidth = pageHeight / a4Ratio;
-            }
+          // If height exceeds screen height, recalculate based on height
+          if (pageHeight > constraints.maxHeight * 0.9) {
+            pageHeight = constraints.maxHeight * 0.9;
+            pageWidth = pageHeight / a4Ratio;
+          }
 
-            // Calculate scale factor
-            double scaleFactor = constraints.maxWidth / pageWidth;
+          // Calculate scale factor
+          double scaleFactor = constraints.maxWidth / pageWidth;
 
-            return Center(
-              child: SingleChildScrollView(
-                child: Transform.scale(
-                  scale: 1.1,
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Container(
-                      width: pageWidth,
-                      height: pageHeight,
-                      color: backgroundColor,
-                      padding: EdgeInsets.all(pageWidth * 0.04),
-                      child: Transform.scale(
-                        scale: scaleFactor < 1 ? scaleFactor : 1,
-                        child: _buildContent(cv, pageWidth, labels),
-                      ),
+          return Center(
+            child: SingleChildScrollView(
+              child: Transform.scale(
+                scale: 1.1,
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Container(
+                    width: pageWidth,
+                    height: pageHeight,
+                    color: backgroundColor,
+                    padding: EdgeInsets.all(pageWidth * 0.04),
+                    child: Transform.scale(
+                      scale: scaleFactor < 1 ? scaleFactor : 1,
+                      child: _buildContent(context, cv, pageWidth, labels),
                     ),
                   ),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 
   Widget _buildContent(
-      CvModal cv, double pageWidth, Map<String, String> labels) {
+      context, CvModal cv, double pageWidth, Map<String, String> labels) {
     // Calculate responsive font sizes
     final double baseFontSize = pageWidth * 0.015;
     final TextStyle responsiveTextStyle = textStyle.copyWith(
@@ -134,7 +119,7 @@ class PreivewWidget extends ConsumerWidget {
               Expanded(
                 flex: 3,
                 child: _buildMainContent(
-                    cv, headerStyle, bodyStyle, pageWidth, labels),
+                    context, cv, headerStyle, bodyStyle, pageWidth, labels),
               ),
             ],
           ),
@@ -241,7 +226,7 @@ class PreivewWidget extends ConsumerWidget {
             ? const SizedBox()
             : Column(
                 children: [
-                  Text('Langauges', style: subtitleStyle),
+                  Text(labels['languages']!, style: subtitleStyle),
                   SizedBox(height: pageWidth * 0.001),
                   ...cv.langauges.map(
                     (lang) => Row(
@@ -376,6 +361,7 @@ class PreivewWidget extends ConsumerWidget {
   }
 
   Widget _buildMainContent(
+    context,
     CvModal cv,
     TextStyle headerStyle,
     TextStyle bodyStyle,
@@ -392,10 +378,11 @@ class PreivewWidget extends ConsumerWidget {
                   cv, headerStyle, bodyStyle, pageWidth, labels)
               : 10.horizontalSpace,
           _buildDivider(pageWidth),
-          _buildEducationSection(cv, headerStyle, bodyStyle, pageWidth, labels),
+          _buildEducationSection(
+              context, cv, headerStyle, bodyStyle, pageWidth, labels),
           _buildDivider(pageWidth),
           _buildExperienceSection(
-              cv, headerStyle, bodyStyle, pageWidth, labels),
+              context, cv, headerStyle, bodyStyle, pageWidth, labels),
           _buildDivider(pageWidth),
           _buildCertificationSection(
               cv, headerStyle, bodyStyle, pageWidth, labels),
@@ -427,6 +414,7 @@ class PreivewWidget extends ConsumerWidget {
   }
 
   Widget _buildEducationSection(
+    context,
     CvModal cv,
     TextStyle headerStyle,
     TextStyle bodyStyle,
@@ -446,7 +434,9 @@ class PreivewWidget extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                    '${edu['deg']} ${cv.cvLanguages == TextDirection.rtl ? 'في' : 'of'} ${edu['title']}',
+                    AppLocalizations.of(context)!.preivew__deg_of_title(
+                        edu['deg']!,
+                        edu['title']!), //'${edu['deg']}  of ${edu['title']}',
                     style: bodyStyle.copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(height: pageWidth * 0.001),
                 Text(edu['uni']!, style: bodyStyle),
@@ -461,6 +451,7 @@ class PreivewWidget extends ConsumerWidget {
   }
 
   Widget _buildExperienceSection(
+    context,
     CvModal cv,
     TextStyle headerStyle,
     TextStyle bodyStyle,
@@ -479,7 +470,9 @@ class PreivewWidget extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${exp['title']} at ${exp['at']}',
+                Text(
+                    AppLocalizations.of(context)!
+                        .preivew__exp_title_at(exp['title']!, exp['at']!),
                     style: bodyStyle.copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(height: pageWidth * 0.001),
                 Text(exp['date']!, style: bodyStyle),
@@ -533,7 +526,7 @@ class PreivewWidget extends ConsumerWidget {
       ),
       child: Divider(
         thickness: 1,
-        color: textColor.withOpacity(0.3),
+        color: textColor.withValues(alpha: 0.3),
       ),
     );
   }

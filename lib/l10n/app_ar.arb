@@ -335,5 +335,64 @@
   "export__select_a_background_shade": "اختر لون الخلفية",
   "@export__select_a_background_shade": {
     "type": "text"
+  },
+  "preivew__deg_of_title": "{deg}  في {title}",
+  "@preivew__deg_of_title": {
+    "type": "text",
+    "placeholders": {
+      "deg": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "preivew__contact_details": "معلومات الاتصال",
+  "@preivew__contact_details": {
+    "type": "text"
+  },
+  "preivew__skills": "المهارات",
+  "@preivew__skills": {
+    "type": "text"
+  },
+  "preivew__languages": "اللغات",
+  "@preivew__languages": {
+    "type": "text"
+  },
+  "preivew__hobbies": "الهوايات",
+  "@preivew__hobbies": {
+    "type": "text"
+  },
+  "preivew__socials": "التواصل الاجتماعي",
+  "@preivew__socials": {
+    "type": "text"
+  },
+  "preivew__profile": "خلاصة",
+  "@preivew__profile": {
+    "type": "text"
+  },
+  "preivew__education": "التعليم",
+  "@preivew__education": {
+    "type": "text"
+  },
+  "preivew__experience": "الخبرة المهنية",
+  "@preivew__experience": {
+    "type": "text"
+  },
+  "preivew__certifications": "الشهادات",
+  "@preivew__certifications": {
+    "type": "text"
+  },
+  "preivew__exp_title_at": "{title} في {at}",
+  "@preivew__exp_title_at": {
+    "type": "text",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },"at": {
+        "type": "String"
+      }
+    }
   }
 }

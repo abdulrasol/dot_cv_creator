@@ -208,7 +208,7 @@
   "@from__level_label": {
     "type": "text"
   },
-  "from__add_language_label": " 'Add Language",
+  "from__add_language_label": "Add Language",
   "@from__add_language_label": {
     "type": "text"
   },
@@ -232,7 +232,7 @@
   "@from__add_hobies_label": {
     "type": "text"
   },
-  "from__platform_label": " 'Platform",
+  "from__platform_label": "Platform",
   "@from__platform_label": {
     "type": "text"
   },
@@ -276,7 +276,7 @@
   "@from__social_media_profiles_label": {
     "type": "text"
   },
-  "from__beginner_level": " 'Beginner",
+  "from__beginner_level": "Beginner",
   "@from__beginner_level": {
     "type": "text"
   },
@@ -288,11 +288,11 @@
   "@from__good_level": {
     "type": "text"
   },
-  "from__very_good_level": "  'Very good",
+  "from__very_good_level": " Very good",
   "@from__very_good_level": {
     "type": "text"
   },
-  "from__fluent_level": " 'Fluent",
+  "from__fluent_level": "Fluent",
   "@from__fluent_level": {
     "type": "text"
   },
@@ -335,5 +335,64 @@
   "export__select_a_background_shade": "Select a Background Shade",
   "@export__select_a_background_shade": {
     "type": "text"
+  },
+  "preivew__deg_of_title": "{deg}  of {title}",
+  "@preivew__deg_of_title": {
+    "type": "text",
+    "placeholders": {
+      "deg": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "preivew__contact_details": "Contact Details",
+  "@preivew__contact_details": {
+    "type": "text"
+  },
+  "preivew__skills": "Skills",
+  "@preivew__skills": {
+    "type": "text"
+  },
+  "preivew__languages": "Languages",
+  "@preivew__languages": {
+    "type": "text"
+  },
+  "preivew__hobbies": "Hobbies",
+  "@preivew__hobbies": {
+    "type": "text"
+  },
+  "preivew__socials": "Socials",
+  "@preivew__socials": {
+    "type": "text"
+  },
+  "preivew__profile": "Profile",
+  "@preivew__profile": {
+    "type": "text"
+  },
+  "preivew__education": "Education",
+  "@preivew__education": {
+    "type": "text"
+  },
+  "preivew__experience": "Experience",
+  "@preivew__experience": {
+    "type": "text"
+  },
+  "preivew__certifications": "Certifications",
+  "@preivew__certifications": {
+    "type": "text"
+  },
+  "preivew__exp_title_at": "{title} at {at}",
+  "@preivew__exp_title_at": {
+    "type": "text",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },"at": {
+        "type": "String"
+      }
+    }
   }
 }
