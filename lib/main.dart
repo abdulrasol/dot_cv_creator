@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        initialRoute: '/preivew_screen',
+        initialRoute: '/',
         routes: {
           '/': (context) => const HomePage(),
           '/form': (context) => const FromWidget(),
