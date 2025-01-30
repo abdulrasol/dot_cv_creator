@@ -37,7 +37,7 @@ class MyApp extends ConsumerWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        initialRoute: '/warp',
+        initialRoute: '/',
         routes: {
           '/': (context) => const HomePage(),
           '/form': (context) => const FromWidget(),

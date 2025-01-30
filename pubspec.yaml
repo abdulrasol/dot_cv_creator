@@ -49,6 +49,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  flutter_launcher_icons: ^0.14.3
+  cached_network_image: ^3.4.1
+
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +82,7 @@ flutter:
     - assets/images/templates/3.png
     - assets/images/avatar.png
     - assets/gif/logo.gif
+    - assets/png/logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
